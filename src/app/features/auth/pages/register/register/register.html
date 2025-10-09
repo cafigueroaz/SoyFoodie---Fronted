@@ -1,0 +1,62 @@
+<section class="register-container">
+  <h1 class="register-title">Crea tu cuenta</h1>
+
+  <form class="register-form" (ngSubmit)="onSubmit()" #form="ngForm">
+    <!-- Nombres -->
+    <input type="text" name="nombres" ngModel placeholder="Nombres" required />
+
+    <!-- Apellidos -->
+    <div class="name-fields">
+      <input
+        type="text"
+        name="apellido1"
+        ngModel
+        placeholder="Apellido 1"
+        required
+      />
+      <input
+        type="text"
+        name="apellido2"
+        ngModel
+        placeholder="Apellido 2"
+        required
+      />
+    </div>
+
+    <!-- Fecha -->
+    <input
+      type="date"
+      name="fechaNacimiento"
+      ngModel
+      placeholder="Fecha de nacimiento"
+      required
+    />
+
+    <!-- Correo -->
+    <input type="email" name="correo" ngModel placeholder="Correo" required />
+
+    <!-- Contraseña -->
+    <input
+      type="password"
+      name="password"
+      ngModel
+      placeholder="Contraseña"
+      required
+    />
+
+    <!-- Botón principal -->
+    <button type="submit" class="btn-register">Registrarme</button>
+
+    <!-- Separador -->
+    <div class="separator">
+      <span></span>
+      <p>Ya tienes cuenta?</p>
+      <span></span>
+    </div>
+
+    <!-- Botón secundario -->
+    <button type="button" class="btn-login" (click)="goToLogin()">
+      Iniciar sesión
+    </button>
+  </form>
+</section>
