@@ -1,1 +1,36 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700&display=swap");
+
+body {
+  font-family: "Baloo 2", sans-serif;
+}
+
+.text-title {
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 600;
+  font-size: 32px;
+  line-height: 51px;
+  text-align: center;
+  letter-spacing: -0.03em;
+  color: #ff0000;
+}
+.text-label {
+  width: 100%;
+  border: none;
+  background: transparent;
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  color: rgba(0, 0, 0, 0.5);
+  letter-spacing: -0.09em;
+  outline: none;
+  padding-left: 1vh;
+}
+
+.text-info {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  color: #000;
+  letter-spacing: -0.09em;
+}
