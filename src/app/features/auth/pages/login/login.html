@@ -1,6 +1,7 @@
 <div class="login-container">
+  <h1 class="text-title">SoyFoodie</h1>
+  @if (!isLoggedIn) {
   <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="login-card">
-    <h1 class="text-title">SoyFoodie</h1>
     <div class="form-group">
       <input
         class="text-label"
@@ -39,4 +40,8 @@
 
     <button class="btn-secondary" type="button">Crear cuenta</button>
   </form>
+  } @else {
+  <p class="text-info">Sesión activa como {{ email }}</p>
+  <button class="btn-primary 1875rem" (click)="logout()">Cerrar sesión</button>
+  }
 </div>

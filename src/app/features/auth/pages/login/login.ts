@@ -1,34 +1,40 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../services/auth';
-import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth';
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, FormsModule],
   standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './login.html',
-  styleUrl: './login.scss',
+  styleUrls: ['./login.scss'],
 })
 export class LoginComponent {
   email = '';
   password = '';
+  isLoggedIn!: boolean;
 
   constructor(private router: Router, private authService: AuthService) {}
-
+  ngOnInit() {
+    this.isLoggedInCheck();
+  }
   onSubmit() {
-    if (!this.email || !this.password) {
-      alert('Por favor complete ambos campos.');
-      return;
-    }
-
-    // Simulación de login (sin API)
     const ok = this.authService.loginMock(this.email, this.password);
     if (ok) {
+      this.isLoggedInCheck();
       this.router.navigate(['/home']);
     } else {
-      alert('Credenciales inválidas (simulación).');
+      alert('Credenciales inválidas.');
     }
+  }
+  isLoggedInCheck() {
+    this.isLoggedIn = this.authService.isLoggedIn();
+  }
+
+  logout() {
+    this.authService.logout();
+    this.isLoggedIn = false;
   }
 }

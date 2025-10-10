@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600&display=swap");
-
 .register-container {
   display: flex;
   flex-direction: column;
@@ -10,24 +8,6 @@
   width: 100%;
   height: 90vh;
   box-sizing: border-box;
-}
-
-.register-form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
-  width: 100%;
-}
-
-.name-fields {
-  display: flex;
-  gap: 10px;
-  width: 360px;
-}
-
-.name-fields input {
-  width: 175px;
 }
 
 .separator {

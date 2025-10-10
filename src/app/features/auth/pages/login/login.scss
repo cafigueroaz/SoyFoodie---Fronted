@@ -28,48 +28,6 @@
   border-radius: 5px;
 }
 
-.btn-primary {
-  width: 60%;
-  height: 40px;
-  margin: 2%;
-  background: #ff0000;
-  border-radius: 10px;
-  color: #fff;
-  font-family: "Baloo 2", sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 26px;
-  letter-spacing: -0.07em;
-  cursor: pointer;
-  transition: background 0.2s ease;
-}
-
-.btn-primary:hover {
-  background: #e60000;
-}
-
-.btn-secondary {
-  width: 60%;
-  height: 40px;
-  margin: 2%;
-  border: 2px solid #ff0000;
-  border-radius: 10px;
-  background: transparent;
-  color: #000;
-  font-family: "Baloo 2", sans-serif;
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 26px;
-  letter-spacing: -0.07em;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.btn-secondary:hover {
-  background: #ff0000;
-  color: #fff;
-}
-
 .space {
   margin-top: -2%;
 }
