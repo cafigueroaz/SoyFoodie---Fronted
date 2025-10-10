@@ -9,7 +9,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './register.html',
   styleUrls: ['./register.scss'],
 })
-export class Register {
+export class RegisterComponent {
   constructor(private router: Router) {}
 
   onSubmit() {

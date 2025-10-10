@@ -1,28 +1,15 @@
 @import url("https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600&display=swap");
 
 .register-container {
-  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 0 15px;
   gap: 10px;
-
-  width: 390px;
-  height: 812px;
-  border: 1px solid #000;
-  margin: 0 auto;
-  font-family: "Baloo 2", sans-serif;
-}
-
-.register-title {
-  font-weight: 600;
-  font-size: 32px;
-  line-height: 51px;
-  color: #ff0000;
-  letter-spacing: -0.03em;
-  text-align: center;
+  width: 100%;
+  height: 90vh;
+  box-sizing: border-box;
 }
 
 .register-form {
@@ -33,19 +20,6 @@
   width: 100%;
 }
 
-.register-form input {
-  width: 360px;
-  height: 50px;
-  border-radius: 5px;
-  background: #d9d9d9;
-  border: none;
-  padding: 7px 10px;
-  font-size: 16px;
-  color: rgba(0, 0, 0, 0.5);
-  letter-spacing: -0.09em;
-  outline: none;
-}
-
 .name-fields {
   display: flex;
   gap: 10px;
@@ -54,23 +28,6 @@
 
 .name-fields input {
   width: 175px;
-}
-
-.btn-register {
-  width: 200px;
-  height: 40px;
-  background: #ff0000;
-  border: none;
-  border-radius: 10px;
-  color: #fff;
-  font-size: 16px;
-  letter-spacing: -0.07em;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.btn-register:hover {
-  opacity: 0.9;
 }
 
 .separator {
@@ -85,28 +42,4 @@
   flex-grow: 1;
   height: 1px;
   background-color: #000;
-}
-
-.separator p {
-  font-size: 16px;
-  color: #000;
-  margin: 0;
-  font-weight: 400;
-}
-
-.btn-login {
-  width: 200px;
-  height: 40px;
-  border: 2px solid #ff0000;
-  border-radius: 10px;
-  background: transparent;
-  font-size: 16px;
-  letter-spacing: -0.07em;
-  color: #000;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
-
-.btn-login:hover {
-  background: rgba(255, 0, 0, 0.1);
 }

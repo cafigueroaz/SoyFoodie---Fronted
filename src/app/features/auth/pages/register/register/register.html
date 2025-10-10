@@ -1,62 +1,47 @@
 <section class="register-container">
-  <h1 class="register-title">Crea tu cuenta</h1>
+  <h1 class="text-title">Crear cuenta</h1>
 
-  <form class="register-form" (ngSubmit)="onSubmit()" #form="ngForm">
-    <!-- Nombres -->
-    <input type="text" name="nombres" ngModel placeholder="Nombres" required />
-
-    <!-- Apellidos -->
-    <div class="name-fields">
+  <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
+    <div>
+      <label for="name">Nombre completo</label>
       <input
         type="text"
-        name="apellido1"
+        id="name"
+        name="name"
         ngModel
-        placeholder="Apellido 1"
         required
-      />
-      <input
-        type="text"
-        name="apellido2"
-        ngModel
-        placeholder="Apellido 2"
-        required
+        placeholder="Tu nombre"
       />
     </div>
 
-    <!-- Fecha -->
-    <input
-      type="date"
-      name="fechaNacimiento"
-      ngModel
-      placeholder="Fecha de nacimiento"
-      required
-    />
-
-    <!-- Correo -->
-    <input type="email" name="correo" ngModel placeholder="Correo" required />
-
-    <!-- Contraseña -->
-    <input
-      type="password"
-      name="password"
-      ngModel
-      placeholder="Contraseña"
-      required
-    />
-
-    <!-- Botón principal -->
-    <button type="submit" class="btn-register">Registrarme</button>
-
-    <!-- Separador -->
-    <div class="separator">
-      <span></span>
-      <p>Ya tienes cuenta?</p>
-      <span></span>
+    <div>
+      <label for="email">Correo electrónico</label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        ngModel
+        required
+        placeholder="correo@ejemplo.com"
+      />
     </div>
 
-    <!-- Botón secundario -->
-    <button type="button" class="btn-login" (click)="goToLogin()">
-      Iniciar sesión
-    </button>
+    <div>
+      <label for="password">Contraseña</label>
+      <input
+        type="password"
+        id="password"
+        name="password"
+        ngModel
+        required
+        placeholder="********"
+      />
+    </div>
+
+    <button type="submit">Registrarme</button>
   </form>
+
+  <p class="separator"><span></span>¿Ya tienes una cuenta?<span></span></p>
+
+  <a (click)="goToLogin()">Inicia sesión aquí</a>
 </section>
