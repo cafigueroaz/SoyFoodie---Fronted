@@ -37,4 +37,8 @@ export class LoginComponent {
     this.authService.logout();
     this.isLoggedIn = false;
   }
+
+  goToRegister() {
+    this.router.navigate(['/register']);
+  }
 }

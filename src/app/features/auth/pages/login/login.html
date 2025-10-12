@@ -36,7 +36,9 @@
       <span></span>¿No tienes una cuenta?<span></span>
     </p>
 
-    <button class="btn-secondary" type="button">Crear cuenta</button>
+    <button class="btn-secondary" type="button" (click)="goToRegister()">
+      Crear cuenta
+    </button>
   </form>
   } @else {
   <p class="text-info">Sesión activa como {{ email }}</p>

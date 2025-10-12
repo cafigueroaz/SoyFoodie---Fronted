@@ -22,6 +22,6 @@ export class RegisterComponent {
   }
 
   goToLogin() {
-    console.log('Ir a login');
+    this.router.navigate(['/login']);
   }
 }
