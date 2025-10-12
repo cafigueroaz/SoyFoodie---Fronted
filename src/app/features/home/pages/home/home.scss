@@ -136,7 +136,7 @@ body {
   font-size: 20px;
   line-height: 1;
   text-align: center;
-  letter-spacing: -0.09em;
+  letter-spacing: -0.05em;
   color: #000;
   margin: 0;
   width: 90%;
@@ -152,4 +152,37 @@ body {
   color: #000;
   width: 90%;
   max-width: 338px;
+}
+
+.section-3 {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 95vh;
+
+  margin: 20% 10% 0 10%;
+}
+// ___________________________________
+
+.gallery {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 10px;
+}
+
+.card {
+  width: 80px;
+  height: 142px;
+  background: #d9d9d9;
+  border-radius: 2px;
 }
