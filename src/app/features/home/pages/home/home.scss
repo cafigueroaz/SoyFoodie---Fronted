@@ -1,12 +1,155 @@
-.navbar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: #0078ff;
-  color: white;
-  padding: 1rem;
+html,
+body {
+  height: 100%;
+  margin: 0;
+  scroll-snap-type: y mandatory;
+  overflow-y: scroll;
 }
 
-.content {
-  padding: 2rem;
+.snap {
+  scroll-snap-align: start;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+}
+
+.hero {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 95vh;
+}
+
+.hero-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 80%;
+  height: 35%;
+  background: #ffffff;
+}
+
+.hero-title {
+  width: 80%;
+  height: 120px;
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 500;
+  font-size: 45px;
+  line-height: 44px;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: -0.09em;
+  color: #000000;
+  margin-top: 15%;
+}
+
+.hero-subtitle {
+  width: 80%;
+  height: 130px;
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 0.89;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  letter-spacing: -0.07em;
+  color: #000000;
+  margin: 0;
+}
+
+.tiktok-videos {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 80%;
+  height: 55%;
+  overflow-x: scroll;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+}
+
+.video-card {
+  background: #d9d9d9;
+  border-radius: 5px;
+  flex: none;
+}
+
+.video-card-principal {
+  width: 140px;
+
+  background: #d9d9d9;
+  border-radius: 5px;
+  flex: none;
+  aspect-ratio: 9 / 16;
+}
+
+.text-red {
+  color: #e63946;
+}
+
+.section-foodies {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  width: 100%;
+  height: 100vh;
+}
+
+.frame-1 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0 10px;
+  gap: 25px;
+  width: 90%;
+  max-width: 390px;
+  border-radius: 2px;
+}
+
+.foodies-title {
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 700;
+  font-size: 64px;
+  line-height: 1.2;
+  text-align: center;
+  letter-spacing: 0.15em;
+  color: #ff0000;
+  margin: 0;
+}
+
+.foodies-subtitle {
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 1;
+  text-align: center;
+  letter-spacing: -0.09em;
+  color: #000;
+  margin: 0;
+  width: 90%;
+  max-width: 338px;
+}
+
+.foodies-description {
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.25;
+  text-align: left;
+  color: #000;
+  width: 90%;
+  max-width: 338px;
 }
