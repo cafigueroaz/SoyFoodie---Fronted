@@ -31,3 +31,16 @@
 .space {
   margin-top: -2%;
 }
+.separator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  width: 360px;
+}
+
+.separator span {
+  flex-grow: 1;
+  height: 1px;
+  background-color: #000;
+}

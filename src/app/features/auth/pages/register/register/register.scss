@@ -1,4 +1,4 @@
-.register-container {
+.login-container {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -10,6 +10,27 @@
   box-sizing: border-box;
 }
 
+.login-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.form-group {
+  display: flex;
+  align-items: center;
+  width: 90%;
+  height: 40px;
+  background: #d9d9d9;
+  border-radius: 5px;
+}
+
+.space {
+  margin-top: -2%;
+}
 .separator {
   display: flex;
   align-items: center;
@@ -22,4 +43,8 @@
   flex-grow: 1;
   height: 1px;
   background-color: #000;
+}
+
+.input-container {
+ gap: 15px;
 }

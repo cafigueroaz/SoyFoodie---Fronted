@@ -11,7 +11,12 @@ import { FormsModule } from '@angular/forms';
 })
 export class RegisterComponent {
   constructor(private router: Router) {}
-
+  email = '';
+  name = '';
+  lastname = '';
+  nickname = '';
+  password = '';
+  dateOfBirth = '';
   onSubmit() {
     console.log('Formulario de registro enviado');
   }

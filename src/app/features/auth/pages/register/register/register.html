@@ -1,47 +1,85 @@
-<section class="register-container">
+<div class="login-container">
   <h1 class="text-title">Crear cuenta</h1>
 
-  <form (ngSubmit)="onSubmit()" #registerForm="ngForm">
-    <div>
-      <label for="name">Nombre completo</label>
+  <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="login-card">
+    <div class="form-group">
+      <div class="input-container">
+        <input
+          class="text-label"
+          id="name"
+          name="name"
+          type="text"
+          [(ngModel)]="name"
+          required
+          placeholder="Nombres"
+        />
+      </div>
+      <div class="input-container">
+        <input
+          class="text-label"
+          id="lastname"
+          name="lastname"
+          type="text"
+          [(ngModel)]="lastname"
+          required
+          placeholder="Apellidos"
+        />
+      </div>
+    </div>
+    <div class="form-group">
       <input
-        type="text"
-        id="name"
-        name="name"
-        ngModel
+        class="text-label"
+        id="nickname"
+        name="nickname"
+        type="nickname"
+        [(ngModel)]="nickname"
         required
-        placeholder="Tu nombre"
+        placeholder="Nombre de usuario"
       />
     </div>
-
-    <div>
-      <label for="email">Correo electrónico</label>
+    <div class="form-group">
       <input
-        type="email"
+        class="text-label"
+        id="dateOfBirth"
+        name="dateOfBirth"
+        type="date"
+        [(ngModel)]="dateOfBirth"
+        required
+        placeholder="Fecha de nacimiento"
+      />
+    </div>
+    <div class="form-group">
+      <input
+        class="text-label"
         id="email"
         name="email"
-        ngModel
+        type="email"
+        [(ngModel)]="email"
         required
-        placeholder="correo@ejemplo.com"
+        placeholder="Correo electrónico"
       />
     </div>
 
-    <div>
-      <label for="password">Contraseña</label>
+    <div class="form-group">
       <input
-        type="password"
+        class="text-label"
         id="password"
         name="password"
-        ngModel
+        type="password"
+        [(ngModel)]="password"
         required
-        placeholder="********"
+        placeholder="Nueva contraseña"
       />
     </div>
 
-    <button type="submit">Registrarme</button>
+    <button class="btn-primary" type="submit" [disabled]="loginForm.invalid">
+      Registrarte
+    </button>
+
+    <p class="separator text-info">
+      <span></span>¿Ya tienes una cuenta?<span></span>
+    </p>
+
+    <button class="btn-secondary" type="button">Iniciar sesión</button>
   </form>
-
-  <p class="separator"><span></span>¿Ya tienes una cuenta?<span></span></p>
-
-  <a (click)="goToLogin()">Inicia sesión aquí</a>
-</section>
+</div>
