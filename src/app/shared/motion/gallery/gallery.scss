@@ -1,21 +1,21 @@
+/* 🔹 Contenedor principal dentro de .tiktok-videos */
 .img-group-container {
-  height: 500vh;
+  display: flex;
   width: 100%;
-  position: relative;
+  height: 100%;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
+  gap: 10px;
+  padding: 0 10px;
 }
 
-.img-group-container > div {
-  position: sticky;
-  top: 0;
-  overflow: hidden;
-  height: 100vh;
-}
-
-/* 🔹 Contenedor de todas las imágenes (fila horizontal) */
+/* 🔹 Contenedor de las imágenes (fila horizontal) */
 .img-group {
   display: flex;
-  gap: 10px; /* separación entre imágenes */
-  padding: 0 10px; /* pequeño padding lateral */
+  gap: 10px;
+  height: 100%;
+  align-items: center;
 }
 
 /* 🔹 Contenedor individual de cada imagen */
@@ -27,29 +27,31 @@
   flex-direction: column;
 
   aspect-ratio: 9 / 16;
-  height: 90vh; /* casi toda la pantalla, pero deja margen */
+  height: 100%;
   width: auto;
+
   border-radius: 12px;
   overflow: hidden;
+  background: #000;
 }
 
 /* 🔹 Imagen interna */
 .img-container img {
-  aspect-ratio: 9 / 16;
   width: 100%;
   height: 100%;
-  object-fit: cover; /* llena el espacio sin deformar */
+  object-fit: cover;
   border-radius: 12px;
 }
 
+/* 🔹 Barra de progreso dentro del bloque */
 .progress {
-  position: fixed;
-  bottom: 50px;
-  left: 0;
-  height: 5px;
-  width: 90vw; /* o 100vw si quieres que ocupe todo */
+  position: absolute;
+  bottom: 8px;
+  left: 5%;
+  right: 5%;
+  height: 4px;
   background: #9911ff;
   transform: scaleX(0);
-  transform-origin: left; /* 🟣 se expande desde el borde izquierdo */
+  transform-origin: left;
   border-radius: 10px;
 }
