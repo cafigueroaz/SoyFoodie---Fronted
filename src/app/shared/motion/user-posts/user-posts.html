@@ -1,0 +1,19 @@
+<nav class="posts-nav">
+  <ul class="tabs">
+    <li
+      *ngFor="let tab of tabs"
+      class="tab"
+      [class.active]="tab === selectedTab"
+      (click)="selectTab(tab)"
+    >
+      <span>{{ tab.icon }} {{ tab.label }}</span>
+      <div *ngIf="tab === selectedTab" class="underline"></div>
+    </li>
+  </ul>
+</nav>
+
+<main class="icon-display">
+  <div class="icon">
+    {{ selectedTab.icon }}
+  </div>
+</main>

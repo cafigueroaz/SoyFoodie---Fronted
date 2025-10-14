@@ -1,11 +1,9 @@
 import { Component } from '@angular/core';
-
+import { UserPostsComponent } from '../../../../shared/motion/user-posts/user-posts';
 @Component({
   selector: 'app-profile',
-  imports: [],
+  imports: [UserPostsComponent],
   templateUrl: './profile.html',
-  styleUrl: './profile.scss'
+  styleUrl: './profile.scss',
 })
-export class Profile {
-
-}
+export class Profile {}

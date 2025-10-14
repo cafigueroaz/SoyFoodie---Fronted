@@ -1,0 +1,58 @@
+/* Nav */
+.posts-nav {
+  background: #fdfdfd;
+  padding: 5px 5px 0;
+  border-bottom: 1px solid #eeeeee;
+  height: 6vh;
+  width: 98vw;
+}
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: auto;
+  height: 100%;
+}
+
+.tab {
+  text-align: center;
+  padding: 10px;
+  cursor: pointer;
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 500;
+  color: #0f1115;
+  position: relative;
+  user-select: none;
+
+  width: auto;
+}
+
+.tab.active {
+  background-color: #eee;
+}
+
+.underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: var(--accent, #000);
+}
+
+.icon-display {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 47vh;
+  width: 100%;
+}
+
+.icon {
+  font-size: 5rem;
+}

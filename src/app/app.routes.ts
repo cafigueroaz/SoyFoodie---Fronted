@@ -3,6 +3,8 @@ import { HomeComponent } from './features/home/pages/home/home';
 import { LoginComponent } from './features/auth/pages/login/login';
 import { RegisterComponent } from './features/auth/pages/register/register/register';
 import { GalleryComponent } from './shared/motion/gallery/gallery';
+import { Profile } from './features/user/pages/profile/profile';
+import { UserPostsComponent } from './shared/motion/user-posts/user-posts';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -10,5 +12,7 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'gallery', component: GalleryComponent },
+  { path: 'profile', component: Profile },
+  { path: 'user-post', component: UserPostsComponent },
   { path: '**', redirectTo: 'home' },
 ];
