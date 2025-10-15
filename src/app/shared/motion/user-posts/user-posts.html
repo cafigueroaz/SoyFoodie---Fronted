@@ -6,7 +6,7 @@
       [class.active]="tab === selectedTab"
       (click)="selectTab(tab)"
     >
-      <span>{{ tab.icon }} </span>
+      <img [src]="tab.icon" alt="icon" class="icon" />
       <div *ngIf="tab === selectedTab" class="underline"></div>
     </li>
   </ul>
@@ -14,6 +14,6 @@
 
 <main class="icon-display">
   <div class="icon">
-    {{ selectedTab.icon }}
+    <img [src]="selectedTab.icon" alt="selected icon" />
   </div>
 </main>

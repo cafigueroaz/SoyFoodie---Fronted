@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 interface Tab {
@@ -13,16 +13,17 @@ interface Tab {
   styleUrls: ['./user-posts.scss'],
 })
 export class UserPostsComponent {
-  tabs: Tab[] = [
-    { icon: '🍅' },
-    { icon: '🥬' },
-    { icon: '🧀' },
-    { icon: '🧀' },
-  ];
+  @Input() tabs: Tab[] = [];
 
   selectedTab: Tab = this.tabs[0];
 
   selectTab(tab: Tab) {
     this.selectedTab = tab;
+  }
+
+  ngOnInit() {
+    if (this.tabs.length > 0) {
+      this.selectedTab = this.tabs[0];
+    }
   }
 }
