@@ -6,7 +6,7 @@
       [class.active]="tab === selectedTab"
       (click)="selectTab(tab)"
     >
-      <img [src]="tab.icon" class="icon" />
+      <img [src]="tab.icon" [alt]="tab.name" class="icon" />
     </li>
   </ul>
 </nav>
