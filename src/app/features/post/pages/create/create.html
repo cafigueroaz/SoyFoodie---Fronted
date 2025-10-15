@@ -1,0 +1,109 @@
+<div class="login-container">
+  <div class="back-container">
+    <img src="./icons/back.svg" alt="Retroceder" />
+  </div>
+  <h1 class="text-title">Crear publicación</h1>
+
+  <form (ngSubmit)="onSubmit()" #postForm="ngForm" class="login-card">
+    <div class="form-group">
+      <input
+        class="text-label"
+        id="titulo"
+        name="titulo"
+        type="text"
+        [(ngModel)]="post.titulo"
+        required
+        placeholder="Título del post"
+      />
+    </div>
+
+    <div class="form-group">
+      <textarea
+        class="text-label"
+        id="descripcion"
+        name="descripcion"
+        [(ngModel)]="post.descripcion"
+        required
+        placeholder="Descripción o reseña"
+      ></textarea>
+    </div>
+
+    <div class="form-group">
+      <input
+        class="text-label"
+        id="ubicacion"
+        name="ubicacion"
+        type="text"
+        [(ngModel)]="post.ubicacion"
+        placeholder="Ubicación (opcional)"
+      />
+    </div>
+
+    <div class="form-group">
+      <input
+        class="text-label"
+        id="etiquetas"
+        name="etiquetas"
+        type="text"
+        [(ngModel)]="etiquetasInput"
+        (keyup.enter)="addEtiqueta()"
+        placeholder="Agregar etiquetas (#Vegano, #PetFriendly...)"
+      />
+    </div>
+
+    <div class="tag-container" *ngIf="post.etiquetas?.length">
+      <div class="tag" *ngFor="let tag of post.etiquetas">
+        {{ tag }}
+        <span class="remove-tag" (click)="removeEtiqueta(tag)">×</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input
+        class="text-label"
+        id="calificacion"
+        name="calificacion"
+        type="number"
+        [(ngModel)]="post.calificacion"
+        min="1"
+        max="5"
+        required
+        placeholder="Calificación (1 a 5)"
+      />
+    </div>
+
+    <div class="form-group">
+      <select
+        class="text-label"
+        id="visibilidad"
+        name="visibilidad"
+        [(ngModel)]="post.visibilidad"
+        required
+      >
+        <option value="" disabled selected>Selecciona visibilidad</option>
+        <option value="public">Público</option>
+        <option value="private">Privado</option>
+        <option value="followers">Solo seguidores</option>
+      </select>
+    </div>
+
+    <div class="form-group">
+      <input
+        class="text-label"
+        id="fotos"
+        name="fotos"
+        type="file"
+        multiple
+        (change)="onFileSelected($event)"
+        accept="image/*"
+      />
+    </div>
+
+    <button class="btn-primary" type="submit" [disabled]="postForm.invalid">
+      Publicar
+    </button>
+  </form>
+</div>
+<section class="profile-navbar">
+  <app-navbar> </app-navbar>
+</section>

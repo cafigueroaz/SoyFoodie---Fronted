@@ -5,14 +5,17 @@ import { RegisterComponent } from './features/auth/pages/register/register/regis
 import { GalleryComponent } from './shared/motion/gallery/gallery';
 import { ProfileUser } from './features/user/pages/profile/profileUser';
 import { ProfileRestaurant } from './features/restaurant/pages/profile/profileRestaurant';
+import { CreatePost } from './features/post/pages/create/create';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  { path: 'gallery', component: GalleryComponent },
   { path: 'profile-user', component: ProfileUser },
   { path: 'profile-rest', component: ProfileRestaurant },
+  { path: 'create/post', component: CreatePost },
   { path: '**', redirectTo: 'home' },
+
+  { path: 'gallery', component: GalleryComponent },
 ];

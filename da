@@ -1,0 +1,131 @@
+[33mcommit 3714ba56b8115f80d9f198137a5f5d8df2f1950d[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m)[m
+Author: Cristian Figueroa <figueroaz.ca@gmail.com>
+Date:   Wed Oct 15 01:15:47 2025 -0500
+
+    Se mejora shared/user-post para los tags sean personalizados segun tipo de perfil
+
+[33mcommit f5163046d6e88e4d354644768c0897a96f9f1d39[m
+Author: Cristian Figueroa <figueroaz.ca@gmail.com>
+Date:   Wed Oct 15 00:29:23 2025 -0500
+
+     Se ajusta User-post
+
+[33mcommit 6dcba618bd93ac51978efbd70da17f7cc96b2c37[m
+Author: Cristian Figueroa <figueroaz.ca@gmail.com>
+Date:   Wed Oct 15 00:19:14 2025 -0500
+
+    Se crea profile-rest
+
+[33mcommit b68037c4ed79cb6878e7f067c34e5a6414eeba59[m
+Author: Cristian Figueroa <figueroaz.ca@gmail.com>
+Date:   Tue Oct 14 23:34:51 2025 -0500
+
+    Se ajusta navbar a profile user
+
+[33mcommit 327047d257f490ce372294932b43970b61b379f7[m
+Author: Cristian Figueroa <figueroaz.ca@gmail.com>
+Date:   Tue Oct 14 23:02:11 2025 -0500
+
+    Se agrega funcionalidad de navbar. Tambien se agregar directorio para icons en Public
+
+[33mcommit c582669af5a219c0cd639038d30f558efe8ab151[m
+Author: Cristian Figueroa <figueroaz.ca@gmail.com>
+Date:   Tue Oct 14 21:54:05 2025 -0500
+
+    Se crea componente navbar
+
+[33mcommit adf09ec894b229f6d7939d61c8d7bb2c25e2050d[m
+Author: Cristian Figueroa <figueroaz.ca@gmail.com>
+Date:   Mon Oct 13 23:47:03 2025 -0500
+
+    Se adapta motion/user-post en profile.
+
+[33mcommit 80d0b73f05c9b7fe7d34f2f35c13c4f9f255a92d[m
+Author: Cristian Figueroa <figueroaz.ca@gmail.com>
+Date:   Mon Oct 13 21:24:23 2025 -0500
+
+    Se crea componente de user y restaurant
+
+[33mcommit 9fa3837c163997905a884253e8284e4bceb21704[m
+Author: Cristian Figueroa <figueroaz.ca@gmail.com>
+Date:   Mon Oct 13 00:34:25 2025 -0500
+
+    Se añade motion. Se crea primer ejemplo de Gallery
+
+[33mcommit 534035f8fe25a3c836faabe450d3cf3bb73dc24f[m
+Author: Cristian Figueroa <figueroaz.ca@gmail.com>
+Date:   Sun Oct 12 18:37:40 2025 -0500
+
+    Se agrega tercera division de Home,solo vista
+
+[33mcommit 0917743c923daf69e8791af26f5336e872a10e64[m
+Author: Cristian Figueroa <figueroaz.ca@gmail.com>
+Date:   Sun Oct 12 00:46:32 2025 -0500
+
+    En Home, se crean la vista de las dos primeras secciones. Se añade funcionalidad scroll snapping
+
+[33mcommit 4b62bac14785c378ae7dcc0e368fbe1246679280[m
+Author: Cristian Figueroa <figueroaz.ca@gmail.com>
+Date:   Sat Oct 11 23:47:13 2025 -0500
+
+    Se conecta register y login con botones funcionales
+
+[33mcommit 74e298591104abc09f514320afc98d81487ec3f2[m
+Author: Cristian Figueroa <figueroaz.ca@gmail.com>
+Date:   Sat Oct 11 23:41:10 2025 -0500
+
+    Se crea vista de Register
+
+[33mcommit c6bbb6ed7f0716e0c2ff39008ec1709cb3638006[m
+Author: Cristian Figueroa <figueroaz.ca@gmail.com>
+Date:   Thu Oct 9 21:35:23 2025 -0500
+
+    valida token en localStorage para indicar sesión activa
+
+[33mcommit 5208c4ffd5ad1f6f6adc331d704766c4f5f515d0[m
+Author: Cristian Figueroa <figueroaz.ca@gmail.com>
+Date:   Thu Oct 9 20:38:02 2025 -0500
+
+    Se crea vista y logica de home. Boton de salir sesion
+
+[33mcommit b0a811e06a112b1230028e599e6253c4ba5e5162[m
+Author: Cristian Figueroa <figueroaz.ca@gmail.com>
+Date:   Thu Oct 9 18:51:32 2025 -0500
+
+    Se crea componente Registro. Se crea vista inicial
+
+[33mcommit 7b22cced478496182ac99b28251ec5cfe1867415[m
+Author: Cristian Figueroa <figueroaz.ca@gmail.com>
+Date:   Wed Oct 8 21:46:46 2025 -0500
+
+    Instalacion Angular Material
+
+[33mcommit 66101744bd174b03ec18de53a958708c616a9c80[m
+Author: Cristian Figueroa <figueroaz.ca@gmail.com>
+Date:   Wed Oct 8 21:41:08 2025 -0500
+
+    Se carga primer servicio MockAutentificacion
+
+[33mcommit 5db35e7d941cc9d527da884ee3e0238318d0f35f[m
+Author: Cristian Figueroa <figueroaz.ca@gmail.com>
+Date:   Wed Oct 8 20:27:12 2025 -0500
+
+    Se crea vista de login
+
+[33mcommit ab64be485cb3d930345fec3851d0015de3f39e3f[m
+Author: Cristian Figueroa <figueroaz.ca@gmail.com>
+Date:   Tue Oct 7 19:46:31 2025 -0500
+
+    Se crea servicio auth
+
+[33mcommit 3a025eab8c99bbf5cfe0efd83e488c5b19f556f8[m
+Author: Cristian Figueroa <figueroaz.ca@gmail.com>
+Date:   Tue Oct 7 18:53:13 2025 -0500
+
+    Se crea modulo home y auth
+
+[33mcommit 4e011d17f8a9be77b85b2b5ea5d9c21e45d329e5[m
+Author: Cristian Figueroa <figueroaz.ca@gmail.com>
+Date:   Tue Oct 7 18:35:18 2025 -0500
+
+    Inicio proyecto fronted - SoyFoodie, Angular
