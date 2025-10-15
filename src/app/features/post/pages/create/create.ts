@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NavbarComponent } from '../../../../shared/components/navbar/navbar';
+import { Location } from '@angular/common';
 
 interface Post {
   id?: string;
@@ -60,5 +61,11 @@ export class CreatePost {
 
   onSubmit() {
     console.log('✅ Post creado:', this.post);
+  }
+
+  constructor(private location: Location) {}
+
+  goBack() {
+    this.location.back();
   }
 }

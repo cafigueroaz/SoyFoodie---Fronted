@@ -1,6 +1,14 @@
 <div class="login-container">
   <div class="title-container">
-    <img class="back-container" src="./icons/back.svg" alt="Retroceder" />
+    <img
+      class="back-container"
+      src="./icons/back.svg"
+      alt="Retroceder"
+      role="button"
+      tabindex="0"
+      (click)="goBack()"
+      (keyup.enter)="goBack()"
+    />
     <h1 class="text-title">Crear publicación</h1>
   </div>
 
