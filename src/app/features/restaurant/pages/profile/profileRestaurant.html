@@ -1,0 +1,43 @@
+<section class="profile-container">
+  <section class="profile-header">
+    <div class="user-data">
+      <div class="stat">
+        <p class="stat-value">4.6/5</p>
+        <p class="stat-label">Calificación</p>
+      </div>
+
+      <div class="user-center">
+        <div class="avatar"></div>
+        <p class="username">@hamburguesas_asd</p>
+      </div>
+
+      <div class="stat">
+        <p class="stat-value">27.2k</p>
+        <p class="stat-label">Seguidores</p>
+      </div>
+    </div>
+
+    <div class="user-description">
+      <p class="user-name">Hamburguesas ASD</p>
+      <p class="user-bio">
+        🌮 Auténtica comida mexicana en Bogotá, 10 años de sabor
+      </p>
+    </div>
+    <section class="user-info">
+      <div class="info" *ngFor="let info of infos">
+        {{ info }}
+      </div>
+    </section>
+    <section class="user-tags">
+      <div class="tag" *ngFor="let tag of tags">
+        {{ tag }}
+      </div>
+    </section>
+  </section>
+  <section class="profile-posts">
+    <app-user-posts></app-user-posts>
+  </section>
+  <section class="profile-navbar">
+    <app-navbar> </app-navbar>
+  </section>
+</section>
