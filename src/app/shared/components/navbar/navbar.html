@@ -1,1 +1,12 @@
-<p>navbar works!</p>
+<nav class="navbar">
+  <ul class="tabs">
+    <li
+      *ngFor="let tab of tabs"
+      class="tab"
+      [class.active]="tab === selectedTab"
+      (click)="selectTab(tab)"
+    >
+      <img [src]="tab.icon" class="icon" alt="{{ tab.label }}" />
+    </li>
+  </ul>
+</nav>
