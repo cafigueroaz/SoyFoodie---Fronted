@@ -1,23 +1,31 @@
 .login-container {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 0 15px;
   gap: 10px;
   width: 100%;
-  height: 90vh;
+  min-height: 85vh;
   box-sizing: border-box;
+  justify-content: flex-start;
+  align-items: center;
+  padding-bottom: 80px;
+  overflow-y: auto;
 }
-.back-container {
+.title-container {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   justify-content: center;
-  align-items: first baseline;
-  padding: 0 15px;
+  position: relative;
   width: 100%;
-  height: 5%;
-  margin: 0;
+  padding: 0 15px;
+  margin: 5% 0;
+}
+
+.back-container {
+  position: absolute;
+  left: 0;
+  height: 40px;
+  cursor: pointer;
+  margin-left: 5%;
 }
 
 .login-card {
@@ -37,23 +45,6 @@
   height: auto;
   background: #d9d9d9;
   border-radius: 5px;
-}
-
-.space {
-  margin-top: -2%;
-}
-.separator {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 360px;
-}
-
-.separator span {
-  flex-grow: 1;
-  height: 1px;
-  background-color: #000;
 }
 
 .input-container {
@@ -93,7 +84,7 @@
   bottom: 0;
   left: 0;
   width: 100%;
-  height: 60px;
+  height: 7%;
   background-color: #fff;
   border-top: 1px solid #ddd;
   z-index: 1000;
