@@ -6,7 +6,7 @@ import { GalleryComponent } from '../../../../shared/motion/gallery/gallery';
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, GalleryComponent],
+  imports: [CommonModule],
   templateUrl: './home.html',
   styleUrls: ['./home.scss'],
 })

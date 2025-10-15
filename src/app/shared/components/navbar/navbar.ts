@@ -23,7 +23,7 @@ interface Tab {
 })
 export class NavbarComponent implements OnInit, OnChanges {
   tabs: Tab[] = [
-    { icon: '/icons/home.svg', route: '', name: 'Home' },
+    { icon: '/icons/home.svg', route: '/feed', name: 'Home' },
     { icon: '/icons/search.svg', route: '', name: 'Search' },
     { icon: '/icons/plus-square.svg', route: '/create/post', name: 'Create' },
     { icon: '/icons/map.svg', route: '', name: 'Map' },

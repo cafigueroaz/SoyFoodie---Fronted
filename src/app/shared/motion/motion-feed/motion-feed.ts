@@ -7,46 +7,45 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { animate, scroll } from '@motionone/dom';
+import { NavbarComponent } from '../../components/navbar/navbar';
 
 interface GalleryItem {
   id: number;
   src: string;
+  username: string;
 }
 
 @Component({
   selector: 'app-scroll-gallery',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NavbarComponent],
   templateUrl: './motion-feed.html',
   styleUrls: ['./motion-feed.scss'],
 })
 export class ScrollGalleryComponent implements AfterViewInit {
-  // Lista de imágenes dinámicas
   gallery: GalleryItem[] = [
-    { id: 1, src: '/photos/cityscape/1.jpg' },
-    { id: 2, src: '/photos/cityscape/2.jpg' },
-    { id: 3, src: '/photos/cityscape/3.jpg' },
-    { id: 4, src: '/photos/cityscape/4.jpg' },
-    { id: 5, src: '/photos/cityscape/5.jpg' },
+    { id: 1, src: '/photos/cityscape/1.jpg', username: '@cristian' },
+    { id: 2, src: '/photos/cityscape/2.jpg', username: '@maria' },
+    { id: 3, src: '/photos/cityscape/3.jpg', username: '@juan' },
+    { id: 4, src: '/photos/cityscape/4.jpg', username: '@laura' },
+    { id: 5, src: '/photos/cityscape/5.jpg', username: '@alex' },
   ];
 
-  @ViewChildren('header') headers!: QueryList<ElementRef>;
-  progress!: HTMLElement;
+  // Selecciona todos los elementos del template que tengan #username
+  @ViewChildren('username') usernames!: QueryList<ElementRef>;
 
   ngAfterViewInit() {
-    // Seleccionamos la barra de progreso
-    this.progress = document.querySelector('.progress') as HTMLElement;
+    this.usernames.forEach((userRef) => {
+      const userEl = userRef.nativeElement as HTMLElement;
 
-    if (this.progress) {
-      scroll(animate(this.progress, { scaleX: [0, 1] }, { easing: 'linear' }));
-    }
-
-    // Animación de cada header
-    this.headers.forEach((headerRef) => {
-      const headerEl = headerRef.nativeElement as HTMLElement;
-      scroll(animate(headerEl, { y: [-400, 400] }, { easing: 'linear' }), {
-        target: headerEl,
-      });
+      scroll(
+        animate(
+          userEl,
+          { y: [-400, 400] }, // movimiento vertical
+          { easing: 'linear' }
+        ),
+        { target: userEl }
+      );
     });
   }
 }

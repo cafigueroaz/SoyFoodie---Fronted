@@ -1,8 +1,12 @@
 <section class="img-container" *ngFor="let item of gallery">
   <div>
-    <img [src]="item.src" alt="#{{ item.id }}" />
-    <h2 #header>#00{{ item.id }}</h2>
+    <img [src]="item.src" [alt]="item.username" />
+    <h2 #username>{{ item.username }}</h2>
+
+    <div class="button-container">
+      <button><img src="/icons/hearth.svg" alt="Like" /></button>
+      <button><img src="/icons/hearth.svg" alt="Like" /></button>
+      <button><img src="/icons/hearth.svg" alt="Like" /></button>
+    </div>
   </div>
 </section>
-
-<div class="progress"></div>
