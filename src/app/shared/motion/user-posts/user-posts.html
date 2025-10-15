@@ -6,7 +6,7 @@
       [class.active]="tab === selectedTab"
       (click)="selectTab(tab)"
     >
-      <span>{{ tab.icon }} {{ tab.label }}</span>
+      <span>{{ tab.icon }} </span>
       <div *ngIf="tab === selectedTab" class="underline"></div>
     </li>
   </ul>

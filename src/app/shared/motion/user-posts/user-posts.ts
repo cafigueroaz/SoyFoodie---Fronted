@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 interface Tab {
   icon: string;
-  label: string;
 }
 
 @Component({
@@ -15,10 +14,10 @@ interface Tab {
 })
 export class UserPostsComponent {
   tabs: Tab[] = [
-    { icon: '🍅', label: 'Tomate' },
-    { icon: '🥬', label: 'Lechuga' },
-    { icon: '🧀', label: 'Queso' },
-    { icon: '🧀', label: 'Queso' },
+    { icon: '🍅' },
+    { icon: '🥬' },
+    { icon: '🧀' },
+    { icon: '🧀' },
   ];
 
   selectedTab: Tab = this.tabs[0];
