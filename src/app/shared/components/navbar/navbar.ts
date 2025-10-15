@@ -3,11 +3,10 @@ import { CommonModule } from '@angular/common';
 
 interface Tab {
   icon: string;
-  label: string;
 }
 
 @Component({
-  selector: 'navbar',
+  selector: 'app-navbar',
   standalone: true,
   imports: [CommonModule],
   templateUrl: './navbar.html',
@@ -15,11 +14,11 @@ interface Tab {
 })
 export class NavbarComponent {
   tabs: Tab[] = [
-    { icon: '/icons/home.svg', label: 'Inicio' },
-    { icon: '/icons/search.svg', label: 'Buscar' },
-    { icon: '/icons/plus-square.svg', label: 'Agregar' },
-    { icon: '/icons/map.svg', label: 'Mapa' },
-    { icon: '/icons/user-circle-2.svg', label: 'Perfil' },
+    { icon: '/icons/home.svg' },
+    { icon: '/icons/search.svg' },
+    { icon: '/icons/plus-square.svg' },
+    { icon: '/icons/map.svg' },
+    { icon: '/icons/user-circle-2.svg' },
   ];
 
   selectedTab: Tab = this.tabs[0];
