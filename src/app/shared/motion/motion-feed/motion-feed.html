@@ -1,0 +1,8 @@
+<section class="img-container" *ngFor="let item of gallery">
+  <div>
+    <img [src]="item.src" alt="#{{ item.id }}" />
+    <h2 #header>#00{{ item.id }}</h2>
+  </div>
+</section>
+
+<div class="progress"></div>

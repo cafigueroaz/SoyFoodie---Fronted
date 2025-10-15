@@ -6,6 +6,7 @@ import { GalleryComponent } from './shared/motion/gallery/gallery';
 import { ProfileUser } from './features/user/pages/profile/profileUser';
 import { ProfileRestaurant } from './features/restaurant/pages/profile/profileRestaurant';
 import { CreatePost } from './features/post/pages/create/create';
+import { ScrollGalleryComponent } from './shared/motion/motion-feed/motion-feed';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -15,7 +16,8 @@ export const routes: Routes = [
   { path: 'profile-user', component: ProfileUser },
   { path: 'profile-rest', component: ProfileRestaurant },
   { path: 'create/post', component: CreatePost },
-  { path: '**', redirectTo: 'home' },
 
   { path: 'gallery', component: GalleryComponent },
+  { path: 'feed', component: ScrollGalleryComponent },
+  { path: '**', redirectTo: 'home' },
 ];
