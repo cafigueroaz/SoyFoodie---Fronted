@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 
 interface Tab {
   icon: string;
-  route: string;
+  route?: string;
   name: string;
 }
 
@@ -24,9 +24,9 @@ interface Tab {
 export class NavbarComponent implements OnInit, OnChanges {
   tabs: Tab[] = [
     { icon: '/icons/home.svg', route: '/feed', name: 'Home' },
-    { icon: '/icons/search.svg', route: '', name: 'Search' },
+    { icon: '/icons/search.svg', route: undefined, name: 'Search' },
     { icon: '/icons/plus-square.svg', route: '/create/post', name: 'Create' },
-    { icon: '/icons/map.svg', route: '', name: 'Map' },
+    { icon: '/icons/map.svg', route: undefined, name: 'Map' },
     {
       icon: '/icons/user-circle-2.svg',
       route: '/profile-user',

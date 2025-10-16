@@ -7,7 +7,6 @@ import {
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { animate, scroll } from '@motionone/dom';
-import { NavbarComponent } from '../../components/navbar/navbar';
 
 interface GalleryItem {
   id: number;
@@ -18,7 +17,7 @@ interface GalleryItem {
 @Component({
   selector: 'app-scroll-gallery',
   standalone: true,
-  imports: [CommonModule, NavbarComponent],
+  imports: [CommonModule],
   templateUrl: './motion-feed.html',
   styleUrls: ['./motion-feed.scss'],
 })

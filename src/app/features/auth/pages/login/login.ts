@@ -24,7 +24,7 @@ export class LoginComponent {
     const ok = this.authService.loginMock(this.email, this.password);
     if (ok) {
       this.isLoggedInCheck();
-      this.router.navigate(['/home']);
+      this.router.navigate(['/profile-user']);
     } else {
       alert('Credenciales inválidas.');
     }
