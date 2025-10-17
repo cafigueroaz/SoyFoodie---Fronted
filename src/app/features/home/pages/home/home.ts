@@ -12,4 +12,8 @@ import { GalleryComponent } from '../../../../shared/motion/gallery/gallery';
 })
 export class HomeComponent {
   constructor(private router: Router, private authService: AuthService) {}
+
+  goToLogin() {
+    this.router.navigate(['/login']);
+  }
 }
