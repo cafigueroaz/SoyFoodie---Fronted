@@ -1,12 +1,13 @@
 <section class="img-container" *ngFor="let item of gallery">
   <div>
-    <img [src]="item.src" [alt]="item.username" />
+    <video #videoEl [src]="item.src" autoplay muted loop playsinline></video>
+
     <h2 #username>{{ item.username }}</h2>
 
     <div class="button-container">
       <button><img src="/icons/hearth.svg" alt="Like" /></button>
-      <button><img src="/icons/hearth.svg" alt="Like" /></button>
-      <button><img src="/icons/hearth.svg" alt="Like" /></button>
+      <button><img src="/icons/hearth.svg" alt="Comment" /></button>
+      <button><img src="/icons/hearth.svg" alt="Share" /></button>
     </div>
   </div>
 </section>
