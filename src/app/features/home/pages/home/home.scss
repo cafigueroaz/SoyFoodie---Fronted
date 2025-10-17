@@ -8,7 +8,7 @@ body {
 
 .snap {
   scroll-snap-align: start;
-  height: 100vh;
+  height: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -21,7 +21,7 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 95vh;
+  height: 95%;
 }
 
 .hero-description {
@@ -70,25 +70,26 @@ body {
   justify-content: center;
   align-items: center;
   gap: 10px;
-  width: 80%;
+  width: 90%;
   height: 55%;
   overflow-x: scroll;
-  scroll-snap-type: x mandatory;
-  scroll-behavior: smooth;
 }
 
 .video-card {
-  background: #d9d9d9;
-  border-radius: 5px;
-  flex: none;
-}
-
-.video-card-principal {
-  width: 140px;
+  max-width: 140px;
   background: #d9d9d9;
   border-radius: 5px;
   flex: none;
   aspect-ratio: 9 / 16;
+}
+
+.video-card video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 12px;
+  display: block;
 }
 
 .text-red {
@@ -103,7 +104,7 @@ body {
   align-items: center;
   padding: 0;
   width: 100%;
-  height: 100vh;
+  height: 100%;
 }
 
 .frame-1 {
@@ -124,7 +125,7 @@ body {
   font-size: 64px;
   line-height: 1.2;
   text-align: center;
-  letter-spacing: 0.15em;
+
   color: #ff0000;
   margin: 0;
 }
@@ -159,9 +160,9 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  height: 95vh;
+  height: 95%;
 
-  margin: 20% 10% 0 10%;
+  margin-top: 10%;
 }
 // ___________________________________
 
@@ -184,4 +185,31 @@ body {
   height: 142px;
   background: #d9d9d9;
   border-radius: 2px;
+}
+
+.cta-button {
+  font-family: "Baloo 2", sans-serif;
+  font-weight: 600;
+  font-size: 18px;
+  color: #ffffff;
+  background-color: #ff0015;
+  border: none;
+  border-radius: 12px;
+  padding: 14px 40px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
+}
+
+.cta-button:hover {
+  background-color: #ff4b5c;
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(230, 57, 70, 0.6);
+}
+
+.cta-button:active {
+  transform: scale(0.97);
+  background-color: #d62839;
 }
