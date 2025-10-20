@@ -1,8 +1,16 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+interface PostItem {
+  id: number;
+  type: 'video' | 'image';
+  src: string;
+  likes: number;
+}
 
 interface Tab {
   icon: string;
+  posts: PostItem[];
 }
 
 @Component({
@@ -12,18 +20,17 @@ interface Tab {
   templateUrl: '../user-posts/user-posts.html',
   styleUrls: ['./user-posts.scss'],
 })
-export class UserPostsComponent {
+export class UserPostsComponent implements OnInit {
   @Input() tabs: Tab[] = [];
-
-  selectedTab: Tab = this.tabs[0];
-
-  selectTab(tab: Tab) {
-    this.selectedTab = tab;
-  }
+  selectedTab!: Tab;
 
   ngOnInit() {
     if (this.tabs.length > 0) {
       this.selectedTab = this.tabs[0];
     }
+  }
+
+  selectTab(tab: Tab) {
+    this.selectedTab = tab;
   }
 }

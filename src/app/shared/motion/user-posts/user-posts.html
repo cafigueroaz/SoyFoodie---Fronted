@@ -12,8 +12,22 @@
   </ul>
 </nav>
 
-<main class="icon-display">
-  <div class="icon">
-    <img [src]="selectedTab.icon" alt="selected icon" />
+<main class="grid-display">
+  <div class="video-card" *ngFor="let post of selectedTab.posts">
+    <video
+      *ngIf="post.type === 'video'"
+      [src]="post.src"
+      muted
+      autoplay
+      loop
+      playsinline
+    ></video>
+
+    <img *ngIf="post.type === 'image'" [src]="post.src" alt="post" />
+
+    <div class="likes">
+      <img src="/icons/hearth.svg" alt="likes" />
+      <span>{{ post.likes }}</span>
+    </div>
   </div>
 </main>

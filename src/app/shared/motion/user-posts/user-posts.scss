@@ -1,4 +1,3 @@
-/* Nav */
 .posts-nav {
   background: #fdfdfd;
   padding: 5px 5px 0;
@@ -55,4 +54,47 @@
 .icon {
   width: 24px;
   height: 24px;
+}
+
+.grid-display {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  padding: 10px;
+}
+
+.video-card {
+  position: relative;
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  border-radius: 8px;
+  background: #000;
+}
+
+.video-card video,
+.video-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.likes {
+  position: absolute;
+  bottom: 6px;
+  right: 8px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 14px;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 4px 8px;
+  border-radius: 12px;
+  backdrop-filter: blur(2px);
+}
+
+.likes img {
+  width: 14px;
+  height: 14px;
+  filter: brightness(0) invert(1) drop-shadow(0 0 4px rgba(0, 0, 0, 0.8));
 }
