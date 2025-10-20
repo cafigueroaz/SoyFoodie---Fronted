@@ -40,7 +40,7 @@ export class ScrollGalleryComponent implements AfterViewInit {
     },
     {
       id: 4,
-      src: 'https://res.cloudinary.com/dupuzbtuc/video/upload/v1760667179/Video_Hero_2_z5cytf.mp4',
+      src: 'https://res.cloudinary.com/dupuzbtuc/video/upload/v1760667179/Video_Hero_2_z5cytf.mp4 ',
       username: '@alejandro',
     },
   ];
