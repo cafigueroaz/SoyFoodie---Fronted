@@ -51,7 +51,10 @@
   justify-content: center;
   align-items: center;
   transition: transform 0.2s;
-  color: blanchedalmond;
+
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.2);
 }
 
 .button-container button:hover {
