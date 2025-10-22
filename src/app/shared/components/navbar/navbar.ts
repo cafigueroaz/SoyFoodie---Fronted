@@ -29,7 +29,7 @@ export class NavbarComponent implements OnInit, OnChanges {
     { icon: '/icons/map.svg', route: undefined, name: 'Map' },
     {
       icon: '/icons/user-circle-2.svg',
-      route: '/profile-user',
+      route: '/profile',
       name: 'Profile',
     },
   ];

@@ -8,6 +8,7 @@ import { CreatePost } from './features/post/pages/create/create';
 import { FeedPage } from './features/feed/pages/feed-page/feed-page';
 import { authGuard } from './guards/auth-guard';
 import { guestOnlyGuard } from './guards/guest-only-guard';
+import { rolGuard } from './guards/rol-guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -18,14 +19,15 @@ export const routes: Routes = [
     canActivate: [guestOnlyGuard],
     component: RegisterComponent,
   },
-  { path: 'profile/user', canActivate: [authGuard], component: ProfileUser },
   {
-    path: 'profile/partner',
-    canActivate: [authGuard],
-    component: ProfilePartner,
+    path: 'profile',
+    canActivate: [rolGuard],
+    children: [
+      { path: 'user', component: ProfileUser },
+      { path: 'partner', component: ProfilePartner },
+    ],
   },
   { path: 'create/post', canActivate: [authGuard], component: CreatePost },
   { path: 'feed', canActivate: [authGuard], component: FeedPage },
-
   { path: '**', redirectTo: 'home' },
 ];

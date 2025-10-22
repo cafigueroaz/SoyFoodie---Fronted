@@ -23,8 +23,12 @@ export class LoginComponent {
   onSubmit() {
     const ok = this.authService.loginMock(this.email, this.password);
     if (ok) {
-      this.isLoggedInCheck();
-      this.router.navigate(['/profile-user']);
+      const role = this.authService.role();
+      if (role === 'user') {
+        this.router.navigate(['/profile/user']);
+      } else if (role === 'partner') {
+        this.router.navigate(['/profile/partner']);
+      }
     } else {
       alert('Credenciales inválidas.');
     }

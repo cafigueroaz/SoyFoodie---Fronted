@@ -1,12 +1,13 @@
 <nav class="navbar">
   <ul class="tabs">
+    @for (tab of tabs; track tab.name) {
     <li
-      *ngFor="let tab of tabs"
       class="tab"
       [class.active]="tab === selectedTab"
       (click)="selectTab(tab)"
     >
       <img [src]="tab.icon" [alt]="tab.name" class="icon" />
     </li>
+    }
   </ul>
 </nav>

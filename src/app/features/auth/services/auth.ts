@@ -24,9 +24,9 @@ export class AuthService {
     const token = localStorage.getItem(this.KEY_TOKEN);
     const role = localStorage.getItem(this.KEY_ROLE) as Role | null;
 
-    if (token) {
+    if (token && role) {
       this._user.set({ name: 'Usuario', email: 'user@finbit.dev' });
-      if (role === 'admin' || role === 'user') this._role.set(role);
+      this._role.set(role);
     }
   }
 
@@ -45,14 +45,14 @@ export class AuthService {
   loginMock(email: string, password: string): boolean {
     if (!email || !password) return false;
 
-    const asAdmin = /admin/i.test(email);
-    const role: Role = asAdmin ? 'admin' : 'user';
+    const asUser = /user/i.test(email);
+    const role: Role = asUser ? 'user' : 'partner';
 
     localStorage.setItem(this.KEY_TOKEN, 'demo-token');
     localStorage.setItem(this.KEY_ROLE, role);
 
     this._user.set({
-      name: asAdmin ? 'Admin FinBit' : 'Usuario FinBit',
+      name: asUser ? 'Usuario FinBit' : 'Partner FinBit',
       email,
     });
     this._role.set(role);
@@ -70,7 +70,6 @@ export class AuthService {
   // Verificación de sesión
   isLoggedIn(): boolean {
     const validSession = !!localStorage.getItem(this.KEY_TOKEN);
-    console.log('isLoggedIn:', validSession);
     return validSession;
   }
 
