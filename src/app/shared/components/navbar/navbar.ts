@@ -29,7 +29,7 @@ export class NavbarComponent implements OnInit, OnChanges {
     { icon: '/icons/map.svg', route: undefined, name: 'Map' },
     {
       icon: '/icons/user-circle-2.svg',
-      route: '/profile',
+      route: '',
       name: 'Profile',
     },
   ];
@@ -37,6 +37,7 @@ export class NavbarComponent implements OnInit, OnChanges {
   @Input() activeTabName: string = '';
 
   selectedTab?: Tab;
+  role = localStorage.getItem('auth_role_demo');
 
   constructor(private router: Router) {}
 
@@ -52,7 +53,16 @@ export class NavbarComponent implements OnInit, OnChanges {
 
   selectTab(tab: Tab) {
     this.selectedTab = tab;
-    this.router.navigate([tab.route]);
+
+    if (tab.name !== 'Profile' && tab.route) {
+      this.router.navigate([tab.route]);
+    } else if (tab.name === 'Profile') {
+      if (this.role === 'user') {
+        this.router.navigate(['/profile/user']);
+      } else if (this.role === 'partner') {
+        this.router.navigate(['/profile/partner']);
+      }
+    }
   }
 
   private updateSelectedTab() {
