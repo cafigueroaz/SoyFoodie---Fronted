@@ -16,7 +16,7 @@ interface Tab {
 }
 
 @Component({
-  selector: 'app-profile-partner',
+  selector: 'app-profile-restaurant',
   standalone: true,
   imports: [UserPostsComponent, NavbarComponent, CommonModule],
   templateUrl: './profilePartner.html',
