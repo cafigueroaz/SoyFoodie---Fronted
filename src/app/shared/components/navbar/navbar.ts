@@ -4,9 +4,11 @@ import {
   Input,
   OnChanges,
   SimpleChanges,
+  inject,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { AuthService } from '../../../features/auth/services/auth';
 
 interface Tab {
   icon: string;
@@ -27,17 +29,16 @@ export class NavbarComponent implements OnInit, OnChanges {
     { icon: '/icons/search.svg', route: undefined, name: 'Search' },
     { icon: '/icons/plus-square.svg', route: '/create/post', name: 'Create' },
     { icon: '/icons/map.svg', route: undefined, name: 'Map' },
-    {
-      icon: '/icons/user-circle-2.svg',
-      route: '',
-      name: 'Profile',
-    },
+    { icon: '/icons/user-circle-2.svg', route: '', name: 'Profile' },
   ];
-
+  auth = inject(AuthService);
   @Input() activeTabName: string = '';
 
   selectedTab?: Tab;
   role = localStorage.getItem('auth_role_demo');
+
+  holdTimeout: any;
+  showProfileMenu = false;
 
   constructor(private router: Router) {}
 
@@ -63,6 +64,32 @@ export class NavbarComponent implements OnInit, OnChanges {
         this.router.navigate(['/profile/partner']);
       }
     }
+  }
+
+  startHold(tab: Tab) {
+    if (tab.name === 'Profile') {
+      this.holdTimeout = setTimeout(() => {
+        this.showProfileMenu = true;
+      }, 600);
+    }
+  }
+
+  cancelHold() {
+    clearTimeout(this.holdTimeout);
+  }
+
+  goToProfile() {
+    this.showProfileMenu = false;
+    if (this.role === 'user') {
+      this.router.navigate(['/profile/user']);
+    } else if (this.role === 'partner') {
+      this.router.navigate(['/profile/partner']);
+    }
+  }
+
+  buttomLogout() {
+    this.auth.logout();
+    this.router.navigate(['/feed']);
   }
 
   private updateSelectedTab() {

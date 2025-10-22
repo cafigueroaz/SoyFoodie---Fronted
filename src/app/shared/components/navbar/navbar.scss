@@ -16,7 +16,9 @@
   padding: 0;
   margin: 0;
 }
+
 .tab {
+  position: relative; /* necesario para ubicar el menú flotante */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,4 +46,61 @@
   filter: brightness(0) saturate(100%) invert(15%) sepia(94%) saturate(7351%)
     hue-rotate(0deg) brightness(102%) contrast(112%);
   transform: scale(1.15);
+}
+
+/* Menú flotante */
+.profile-menu {
+  position: absolute;
+  bottom: 40px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 6px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 1000;
+}
+
+.profile-menu button {
+  background: none;
+  border: none;
+  padding: 6px 12px;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.profile-menu button:hover {
+  background: #f2f2f2;
+}
+
+.profile-menu {
+  position: absolute;
+  bottom: 40px;
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding: 6px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  z-index: 1000;
+}
+
+.profile-menu button {
+  background: none;
+  border: none;
+  padding: 6px 12px;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.profile-menu button:hover {
+  background: #f2f2f2;
 }

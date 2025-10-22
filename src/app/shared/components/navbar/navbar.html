@@ -6,7 +6,22 @@
       [class.active]="tab === selectedTab"
       (click)="selectTab(tab)"
     >
-      <img [src]="tab.icon" [alt]="tab.name" class="icon" />
+      <img
+        [src]="tab.icon"
+        [alt]="tab.name"
+        class="icon"
+        (mousedown)="startHold(tab)"
+        (mouseup)="cancelHold()"
+        (mouseleave)="cancelHold()"
+        (touchstart)="startHold(tab)"
+        (touchend)="cancelHold()"
+      />
+
+      @if (tab.name === 'Profile' && showProfileMenu) {
+      <div class="profile-menu">
+        <button (click)="buttomLogout()">Cerrar sesión</button>
+      </div>
+      }
     </li>
     }
   </ul>
