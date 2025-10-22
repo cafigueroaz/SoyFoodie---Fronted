@@ -7,7 +7,7 @@ export const guestOnlyGuard: CanActivateFn = () => {
   const router = inject(Router);
 
   if (auth.isLoggedIn()) {
-    router.navigate(['/home']);
+    router.navigate(['/feed']);
     return false;
   }
 

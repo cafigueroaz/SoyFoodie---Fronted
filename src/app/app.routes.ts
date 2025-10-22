@@ -6,16 +6,26 @@ import { ProfileUser } from './features/user/pages/profile/profileUser';
 import { ProfilePartner } from './features/partner/pages/profile/profilePartner';
 import { CreatePost } from './features/post/pages/create/create';
 import { FeedPage } from './features/feed/pages/feed-page/feed-page';
+import { authGuard } from './guards/auth-guard';
+import { guestOnlyGuard } from './guards/guest-only-guard';
 
 export const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'profile/user', component: ProfileUser },
-  { path: 'profile/partner', component: ProfilePartner },
-  { path: 'create/post', component: CreatePost },
-  { path: 'feed', component: FeedPage },
+  { path: 'login', canActivate: [guestOnlyGuard], component: LoginComponent },
+  {
+    path: 'register',
+    canActivate: [guestOnlyGuard],
+    component: RegisterComponent,
+  },
+  { path: 'profile/user', canActivate: [authGuard], component: ProfileUser },
+  {
+    path: 'profile/partner',
+    canActivate: [authGuard],
+    component: ProfilePartner,
+  },
+  { path: 'create/post', canActivate: [authGuard], component: CreatePost },
+  { path: 'feed', canActivate: [authGuard], component: FeedPage },
 
   { path: '**', redirectTo: 'home' },
 ];

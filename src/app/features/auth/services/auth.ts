@@ -1,6 +1,6 @@
 import { Injectable, signal, computed } from '@angular/core';
 
-type Role = 'admin' | 'user';
+type Role = 'admin' | 'user' | 'partner';
 
 @Injectable({
   providedIn: 'root',
@@ -76,5 +76,13 @@ export class AuthService {
 
   isAdmin(): boolean {
     return this._role() === 'admin';
+  }
+
+  isUser(): boolean {
+    return this._role() === 'user';
+  }
+
+  isPartner(): boolean {
+    return this._role() === 'partner';
   }
 }
