@@ -8,7 +8,7 @@ import { Location } from '@angular/common';
 interface Post {
   id?: string;
   usuarioId: string;
-  restauranteId?: string;
+  partnerId?: string;
   titulo: string;
   descripcion: string;
   fotos: string[];

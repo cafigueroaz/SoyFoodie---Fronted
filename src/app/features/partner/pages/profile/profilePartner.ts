@@ -16,17 +16,17 @@ interface Tab {
 }
 
 @Component({
-  selector: 'app-profile-restaurant',
+  selector: 'app-profile-partner',
   standalone: true,
   imports: [UserPostsComponent, NavbarComponent, CommonModule],
-  templateUrl: './profileRestaurant.html',
-  styleUrls: ['./profileRestaurant.scss'],
+  templateUrl: './profilePartner.html',
+  styleUrls: ['./profilePartner.scss'],
 })
-export class ProfileRestaurant {
+export class ProfilePartner {
   tags: string[] = ['Pet Friendly', 'Vegano', 'Económico'];
   infos: string[] = ['Dirección', 'Teléfono', 'Horario'];
 
-  restaurantTabs: Tab[] = [
+  partnerTabs: Tab[] = [
     {
       icon: '/icons/grid.svg',
       posts: [
