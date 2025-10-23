@@ -1,33 +1,33 @@
 <nav class="posts-nav">
   <ul class="tabs">
+    @for (tab of tabs; track tab.icon) {
     <li
-      *ngFor="let tab of tabs"
       class="tab"
       [class.active]="tab === selectedTab"
       (click)="selectTab(tab)"
     >
       <img [src]="tab.icon" alt="icon" class="icon" />
-      <div *ngIf="tab === selectedTab" class="underline"></div>
+      @if (tab === selectedTab) {
+      <div class="underline"></div>
+      }
     </li>
+    }
   </ul>
 </nav>
 
 <main class="grid-display">
-  <div class="video-card" *ngFor="let post of selectedTab.posts">
-    <video
-      *ngIf="post.type === 'video'"
-      [src]="post.src"
-      muted
-      autoplay
-      loop
-      playsinline
-    ></video>
-
-    <img *ngIf="post.type === 'image'" [src]="post.src" alt="post" />
+  @if (selectedTab) { @for (post of selectedTab.posts; track post.id) {
+  <div class="video-card">
+    @if (post.type === 'video') {
+    <video [src]="post.src" autoplay [muted]="true" playsinline loop></video>
+    } @else if (post.type === 'image') {
+    <img [src]="post.src" alt="post" />
+    }
 
     <div class="likes">
       <img src="/icons/hearth.svg" alt="likes" />
       <span>{{ post.likes }}</span>
     </div>
   </div>
+  } }
 </main>

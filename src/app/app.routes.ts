@@ -23,8 +23,8 @@ export const routes: Routes = [
     path: 'profile',
     canActivate: [rolGuard],
     children: [
-      { path: 'user', component: ProfileUser },
-      { path: 'partner', component: ProfilePartner },
+      { path: 'user', canActivate: [authGuard], component: ProfileUser },
+      { path: 'partner', canActivate: [authGuard], component: ProfilePartner },
     ],
   },
   { path: 'create/post', canActivate: [authGuard], component: CreatePost },

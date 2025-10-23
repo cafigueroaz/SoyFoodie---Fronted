@@ -17,22 +17,31 @@ export class LoginComponent {
   isLoggedIn!: boolean;
 
   constructor(private router: Router, private authService: AuthService) {}
-  ngOnInit() {
-    this.isLoggedInCheck();
-  }
+
   onSubmit() {
-    const ok = this.authService.loginMock(this.email, this.password);
-    if (ok) {
-      const role = this.authService.role();
-      if (role === 'user') {
-        this.router.navigate(['/profile/user']);
-      } else if (role === 'partner') {
-        this.router.navigate(['/profile/partner']);
-      }
-    } else {
-      alert('Credenciales inválidas.');
+    if (!this.email || !this.password) {
+      return alert('Completa email y contraseña.');
     }
+
+    const ok = this.authService.login(this.email, this.password);
+
+    setTimeout(() => {
+      if (ok) {
+        const role = this.authService.role();
+
+        if (role === 'user') {
+          this.router.navigate(['/profile/user']);
+        } else if (role === 'partner') {
+          this.router.navigate(['/profile/partner']);
+        } else {
+          this.router.navigate(['/home']);
+        }
+      } else {
+        alert('Credenciales inválidas.');
+      }
+    }, 1200);
   }
+
   isLoggedInCheck() {
     this.isLoggedIn = this.authService.isLoggedIn();
   }
