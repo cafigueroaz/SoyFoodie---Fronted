@@ -1,47 +1,56 @@
 <div class="login-container">
   <h1 class="text-title">SoyFoodie</h1>
-  @if (!isLoggedIn) {
-  <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="login-card">
-    <div class="form-group">
-      <input
-        class="text-label"
-        id="email"
-        name="email"
-        type="email"
-        [(ngModel)]="email"
-        required
-        placeholder="Correo electrónico"
-      />
-    </div>
 
-    <div class="form-group">
-      <input
-        class="text-label"
-        id="password"
-        name="password"
-        type="password"
-        [(ngModel)]="password"
-        required
-        placeholder="Contraseña"
-      />
-    </div>
+  <ng-container *ngIf="!authService.isLoggedIn(); else logged">
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="login-card">
+      <div class="form-group">
+        <input
+          class="text-label"
+          id="email"
+          name="email"
+          type="email"
+          [(ngModel)]="email"
+          required
+          placeholder="Correo electrónico"
+        />
+      </div>
 
-    <button class="btn-primary" type="submit" [disabled]="loginForm.invalid">
-      Entrar
-    </button>
+      <div class="form-group">
+        <input
+          class="text-label"
+          id="password"
+          name="password"
+          type="password"
+          [(ngModel)]="password"
+          required
+          placeholder="Contraseña"
+        />
+      </div>
 
-    <p class="text-info, space">¿Has olvidado la contraseña?</p>
+      <button
+        class="btn-primary"
+        type="submit"
+        [disabled]="loginForm.invalid || loading"
+      >
+        {{ loading ? "Entrando..." : "Entrar" }}
+      </button>
 
-    <p class="separator text-info">
-      <span></span>¿No tienes una cuenta?<span></span>
+      <p class="text-info space">¿Has olvidado la contraseña?</p>
+
+      <p class="separator text-info">
+        <span></span>¿No tienes una cuenta?<span></span>
+      </p>
+
+      <button class="btn-secondary" type="button" (click)="goToRegister()">
+        Crear cuenta
+      </button>
+    </form>
+  </ng-container>
+
+  <ng-template #logged>
+    <p class="text-info">
+      Sesión activa como {{ authService.user()?.['name'] }}
     </p>
-
-    <button class="btn-secondary" type="button" (click)="goToRegister()">
-      Crear cuenta
-    </button>
-  </form>
-  } @else {
-  <p class="text-info">Sesión activa como {{ email }}</p>
-  <button class="btn-primary 1875rem" (click)="logout()">Cerrar sesión</button>
-  }
+    <button class="btn-primary" (click)="logout()">Cerrar sesión</button>
+  </ng-template>
 </div>

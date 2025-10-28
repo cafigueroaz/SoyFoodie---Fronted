@@ -2,7 +2,9 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from '../../../services/auth'; // asegúrate que exista este servicio
+import { AuthService } from '../../../services/auth';
+
+type Role = 'user' | 'partner';
 
 @Component({
   selector: 'app-register',
@@ -48,24 +50,30 @@ export class RegisterComponent {
       !this.dateOfBirth
     )
       return alert('Completa todos los campos.');
+
     this.loading = true;
 
-    const ok = this.auth.register({
-      name: this.name,
-      lastname: this.lastname,
-      nickname: this.nickname,
-      email: this.email,
-      password: this.password,
-      dateOfBirth: this.dateOfBirth,
-      type: 'user',
-    });
-
-    setTimeout(() => {
-      this.loading = false;
-      ok
-        ? this.router.navigate(['/home'])
-        : alert('Error al registrar usuario.');
-    }, 1000);
+    this.auth
+      .registerHttp({
+        name: this.name,
+        email: this.email,
+        password: this.password,
+        type: 'user',
+        lastname: this.lastname,
+        nickname: this.nickname,
+        dateOfBirth: this.dateOfBirth,
+      })
+      .subscribe({
+        next: ({ token }) => {
+          this.auth.applyToken(token); // queda logueado tras registro
+          this.loading = false;
+          this.router.navigate(['/home']);
+        },
+        error: (err) => {
+          this.loading = false;
+          alert(err?.error?.error || 'Error al registrar usuario.');
+        },
+      });
   }
 
   submitPartner() {
@@ -84,25 +92,30 @@ export class RegisterComponent {
 
     this.loading = true;
 
-    const ok = this.auth.register({
-      name: this.name,
-      lastname: this.lastname,
-      nickname: this.nickname,
-      email: this.email,
-      password: this.password,
-      address: this.address,
-      ownerName: this.ownerName,
-      phone: this.phone,
-      schedule: this.schedule,
-      type: 'partner',
-    });
-
-    setTimeout(() => {
-      this.loading = false;
-      ok
-        ? this.router.navigate(['/home'])
-        : alert('Error al registrar empresa.');
-    }, 1000);
+    this.auth
+      .registerHttp({
+        name: this.name,
+        email: this.email,
+        password: this.password,
+        type: 'partner',
+        lastname: this.lastname,
+        nickname: this.nickname,
+        address: this.address,
+        ownerName: this.ownerName,
+        phone: this.phone,
+        schedule: this.schedule,
+      })
+      .subscribe({
+        next: ({ token }) => {
+          this.auth.applyToken(token); // queda logueado tras registro
+          this.loading = false;
+          this.router.navigate(['/home']);
+        },
+        error: (err) => {
+          this.loading = false;
+          alert(err?.error?.error || 'Error al registrar empresa.');
+        },
+      });
   }
 
   goToLogin() {

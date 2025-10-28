@@ -1,35 +1,39 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, inject } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 type Role = 'admin' | 'user' | 'partner';
 
-interface BaseRegisterData {
+interface LoginDto {
+  email: string;
+  password: string;
+}
+
+interface RegisterDto {
   name: string;
   lastname: string;
   nickname: string;
   email: string;
   password: string;
   type: Role;
+  // Campos opcionales según tipo
+  dateOfBirth?: string;
+  address?: string;
+  ownerName?: string;
+  phone?: string;
+  schedule?: string;
 }
 
-interface UserRegisterData extends BaseRegisterData {
-  dateOfBirth: string;
+interface TokenResponse {
+  token: string;
 }
-
-interface PartnerRegisterData extends BaseRegisterData {
-  address: string;
-  ownerName: string;
-  phone: string;
-  schedule: string;
-}
-
-type RegisterData = UserRegisterData | PartnerRegisterData;
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private readonly KEY_TOKEN = 'auth_token_demo';
-  private readonly KEY_ROLE = 'auth_role_demo';
+  private readonly KEY_TOKEN = 'auth_token';
+  private readonly KEY_ROLE = 'auth_role';
 
   private _user = signal<Record<string, any> | null>(null);
   private _role = signal<Role | null>(null);
@@ -39,81 +43,55 @@ export class AuthService {
   role = computed(() => this._role());
   exp = computed(() => this._exp());
 
+  private http = inject(HttpClient);
+  private API = 'http://localhost:10000';
+
   constructor() {
     const token = localStorage.getItem(this.KEY_TOKEN);
     const role = localStorage.getItem(this.KEY_ROLE) as Role | null;
 
     if (token && role) {
-      const decoded = this.readPayload(token);
-      this._user.set(decoded);
-      this._role.set(role);
+      this.setSessionFromToken(token);
     }
   }
 
-  // ---- Generación de un JWT simulado ----
-  private makeFakeJWT(payload: object): string {
-    const header = btoa(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
-    const body = btoa(JSON.stringify(payload));
-    const sign = btoa('FinBitFakeSignature');
-    return `${header}.${body}.${sign}`;
-  }
-
-  private readPayload(token: string): any | null {
+  // ---------------------------
+  // Sesión: set desde un token
+  // ---------------------------
+  private setSessionFromToken(token: string) {
+    localStorage.setItem(this.KEY_TOKEN, token);
     try {
-      const parts = token.split('.');
-      if (parts.length !== 3) return null;
-      const text = atob(parts[1]);
-      return JSON.parse(text);
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      if (payload?.type) localStorage.setItem(this.KEY_ROLE, payload.type);
+
+      const name = payload?.email ? payload.email.split('@')[0] : 'Usuario';
+      this._user.set({ name, email: payload?.email || '' });
+      this._role.set(payload?.type ?? null);
+      this._exp.set(typeof payload?.exp === 'number' ? payload.exp : null);
     } catch {
-      return null;
+      this.logout();
     }
   }
 
-  // ---- Login simulado ----
-  login(email: string, password: string): boolean {
-    if (!email || !password) return false;
-
-    const asUser = /user/i.test(email);
-    const role: Role = asUser ? 'user' : 'partner';
-    const exp = Math.floor(Date.now() / 1000) + 60 * 30;
-
-    const token = this.makeFakeJWT({
-      name: email.split('@')[0],
-      email,
-      role,
-      exp,
-    });
-
-    localStorage.setItem(this.KEY_TOKEN, token);
-    localStorage.setItem(this.KEY_ROLE, role);
-
-    this._user.set({ name: email.split('@')[0], email });
-    this._role.set(role);
-    this._exp.set(exp);
-
-    return true;
+  // ---------------------------
+  // Login real
+  // ---------------------------
+  loginHttp(dto: LoginDto): Observable<TokenResponse> {
+    return this.http.post<TokenResponse>(`${this.API}/auth/login`, dto);
   }
 
-  // ---- Registro simulado ----
-  register(data: RegisterData): boolean {
-    if (!data.name || !data.email || !data.password) return false;
+  // ---------------------------
+  // Registro real
+  // ---------------------------
+  registerHttp(dto: RegisterDto): Observable<TokenResponse> {
+    return this.http.post<TokenResponse>(`${this.API}/auth/register`, dto);
+  }
 
-    const exp = Math.floor(Date.now() / 1000) + 60 * 30;
-
-    const token = this.makeFakeJWT({
-      ...data, // guardamos todos los datos (para decodificar luego)
-      exp,
-    });
-
-    localStorage.setItem(this.KEY_TOKEN, token);
-    localStorage.setItem(this.KEY_ROLE, data.type);
-
-    // se guarda todo el perfil del usuario
-    this._user.set(data);
-    this._role.set(data.type);
-    this._exp.set(exp);
-
-    return true;
+  // ---------------------------
+  // Helpers de sesión
+  // ---------------------------
+  applyToken(token: string) {
+    this.setSessionFromToken(token);
   }
 
   getToken(): string | null {
@@ -122,7 +100,12 @@ export class AuthService {
 
   getDecoded(): any | null {
     const t = this.getToken();
-    return t ? this.readPayload(t) : null;
+    if (!t) return null;
+    try {
+      return JSON.parse(atob(t.split('.')[1]));
+    } catch {
+      return null;
+    }
   }
 
   logout() {
@@ -130,6 +113,7 @@ export class AuthService {
     localStorage.removeItem(this.KEY_ROLE);
     this._user.set(null);
     this._role.set(null);
+    this._exp.set(null);
   }
 
   isLoggedIn(): boolean {
@@ -144,16 +128,16 @@ export class AuthService {
 
   isAdmin(): boolean {
     const d = this.getDecoded();
-    return d?.role === 'admin';
+    return d?.type === 'admin';
   }
 
   isUser(): boolean {
     const d = this.getDecoded();
-    return d?.role === 'user';
+    return d?.type === 'user';
   }
 
   isPartner(): boolean {
     const d = this.getDecoded();
-    return d?.role === 'partner';
+    return d?.type === 'partner';
   }
 }
