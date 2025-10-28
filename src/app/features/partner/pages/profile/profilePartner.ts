@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
+import { AuthService } from '../../../../features/auth/services/auth';
 import { CommonModule } from '@angular/common';
+
 import { UserPostsComponent } from '../../../../shared/motion/user-posts/user-posts';
 import { NavbarComponent } from '../../../../shared/components/navbar/navbar';
 
@@ -22,9 +24,25 @@ interface Tab {
   templateUrl: './profilePartner.html',
   styleUrls: ['./profilePartner.scss'],
 })
-export class ProfilePartner {
+export class ProfilePartner implements OnInit {
+  private auth = inject(AuthService);
+
   tags: string[] = ['Pet Friendly', 'Vegano', 'Económico'];
-  infos: string[] = ['Dirección', 'Teléfono', 'Horario'];
+
+  // Usuario actual
+  currentUser: any = null;
+
+  // Getter dinámico de información
+  get infos(): string[] {
+    const u = this.currentUser;
+    return [
+      `Dirección: ${u?.address || 'No disponible'}`,
+      `Teléfono: ${u?.phone || 'No disponible'}`,
+      `Horario: ${u?.schedule || 'No disponible'}`,
+    ];
+  }
+
+  user = this.auth.user; // si quieres mantener computed para otras cosas
 
   partnerTabs: Tab[] = [
     {
@@ -74,4 +92,17 @@ export class ProfilePartner {
       ],
     },
   ];
+
+  ngOnInit() {
+    this.auth.user$.subscribe({
+      next: (u) => (this.currentUser = u),
+      error: () => console.error('Error al obtener el usuario'),
+    });
+
+    if (!this.auth.user()) {
+      this.auth.fetchUser().subscribe({
+        error: () => console.error('Error al obtener el usuario'),
+      });
+    }
+  }
 }

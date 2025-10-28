@@ -15,6 +15,10 @@ interface User {
   followers?: string[];
   following?: string[];
   description?: string;
+  rating?: number;
+  address?: string;
+  phone?: number;
+  schedule?: string;
 }
 
 interface LoginDto {
@@ -102,6 +106,10 @@ export class AuthService {
             followers: user.followers ?? [],
             following: user.following ?? [],
             description: user.description ?? '',
+            rating: user.rating ?? 5,
+            address: user.address ?? '',
+            phone: user.phone ?? 0,
+            schedule: user.schedule ?? '',
           });
 
           this.userSubject.next(this._user());

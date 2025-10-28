@@ -2,25 +2,25 @@
   <section class="profile-header">
     <div class="user-data">
       <div class="stat">
-        <p class="stat-value">4.6/5</p>
+        <p class="stat-value">{{ user()?.rating || 5 }}/5</p>
         <p class="stat-label">Calificación</p>
       </div>
 
       <div class="user-center">
         <div class="avatar"></div>
-        <p class="username">@hamburguesas_asd</p>
+        <p class="username">@ {{ user()?.nickname }}</p>
       </div>
 
       <div class="stat">
-        <p class="stat-value">27.2k</p>
+        <p class="stat-value">{{ user()?.followers?.length || 0 }}</p>
         <p class="stat-label">Seguidores</p>
       </div>
     </div>
 
     <div class="user-description">
-      <p class="user-name">Hamburguesas ASD</p>
+      <p class="user-name">{{ user()?.name }}</p>
       <p class="user-bio">
-        🌮 Auténtica comida mexicana en Bogotá, 10 años de sabor
+        {{ user()?.description || "Sin descripción disponible" }}
       </p>
     </div>
     <section class="user-info">
