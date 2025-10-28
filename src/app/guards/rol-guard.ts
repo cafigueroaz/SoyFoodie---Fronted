@@ -13,17 +13,15 @@ export const rolGuard: CanActivateFn = (route, state) => {
   }
 
   if (auth.isPartner()) {
-    if (url !== '/profile/partner') {
-      router.navigate(['/profile/partner']);
-    }
-    return true;
+    if (url === '/profile/partner') return true;
+    router.navigate(['/profile/partner']);
+    return false;
   }
 
   if (auth.isUser()) {
-    if (url !== '/profile/user') {
-      router.navigate(['/profile/user']);
-    }
-    return true;
+    if (url === '/profile/user') return true;
+    router.navigate(['/profile/user']);
+    return false;
   }
 
   return false;

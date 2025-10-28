@@ -38,7 +38,7 @@ export class LoginComponent {
           if (role === 'user') this.router.navigate(['/profile/user']);
           else if (role === 'partner')
             this.router.navigate(['/profile/partner']);
-          else this.router.navigate(['/home']);
+          else this.router.navigate(['/feed']);
         },
         error: (err) => {
           console.error(err);

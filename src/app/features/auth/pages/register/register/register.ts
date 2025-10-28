@@ -24,7 +24,7 @@ export class RegisterComponent {
   password = '';
 
   // Campos específicos de user
-  dateOfBirth = '';
+  age = '';
 
   // Campos específicos de partner
   address = '';
@@ -47,7 +47,7 @@ export class RegisterComponent {
       !this.nickname ||
       !this.email ||
       !this.password ||
-      !this.dateOfBirth
+      !this.age
     )
       return alert('Completa todos los campos.');
 
@@ -61,7 +61,7 @@ export class RegisterComponent {
         type: 'user',
         lastname: this.lastname,
         nickname: this.nickname,
-        dateOfBirth: this.dateOfBirth,
+        age: this.age,
       })
       .subscribe({
         next: ({ token }) => {

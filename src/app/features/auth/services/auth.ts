@@ -17,7 +17,7 @@ interface RegisterDto {
   password: string;
   type: Role;
   // Campos opcionales según tipo
-  dateOfBirth?: string;
+  age?: string;
   address?: string;
   ownerName?: string;
   phone?: string;
@@ -119,10 +119,12 @@ export class AuthService {
   isLoggedIn(): boolean {
     const d = this.getDecoded();
     if (!d) return false;
+
+    // Si está expirado, devuelve false (sin cerrar sesión directamente)
     if (typeof d.exp === 'number' && d.exp * 1000 < Date.now()) {
-      this.logout();
       return false;
     }
+
     return true;
   }
 

@@ -9,8 +9,7 @@ export const authGuard: CanActivateFn = () => {
   if (auth.isLoggedIn()) return true;
 
   router.navigate(['/login']);
-
-  return true;
+  return false;
 };
 
 // guadian encargado de proteger rutas que requieren autenticación
