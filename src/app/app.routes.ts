@@ -19,14 +19,22 @@ export const routes: Routes = [
     canActivate: [guestOnlyGuard],
     component: RegisterComponent,
   },
+  // {
+  //   path: 'profile',
+  //   canActivate: [rolGuard],
+  //   children: [
+  //     { path: 'user', canActivate: [authGuard], component: ProfileUser },
+  //     { path: 'partner', canActivate: [authGuard], component: ProfilePartner },
+  //   ],
+  // },
+
+  { path: 'profile/user', canActivate: [rolGuard], component: ProfileUser },
   {
-    path: 'profile',
+    path: 'profile/partner',
     canActivate: [rolGuard],
-    children: [
-      { path: 'user', canActivate: [authGuard], component: ProfileUser },
-      { path: 'partner', canActivate: [authGuard], component: ProfilePartner },
-    ],
+    component: ProfilePartner,
   },
+
   { path: 'create/post', canActivate: [authGuard], component: CreatePost },
   { path: 'feed', canActivate: [authGuard], component: FeedPage },
   { path: '**', redirectTo: 'home' },
