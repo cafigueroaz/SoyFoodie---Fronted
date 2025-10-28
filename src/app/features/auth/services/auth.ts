@@ -1,6 +1,7 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { tap, catchError } from 'rxjs/operators';
 
 type Role = 'admin' | 'foodie' | 'partner';
 
@@ -42,26 +43,59 @@ export class AuthService {
   role = computed(() => this._role());
   exp = computed(() => this._exp());
 
+  private userSubject = new BehaviorSubject<Record<string, any> | null>(null);
+  user$ = this.userSubject.asObservable();
+
   private http = inject(HttpClient);
   private API = 'http://localhost:10000';
 
   constructor() {
     const token = localStorage.getItem(this.KEY_TOKEN);
-    const role = localStorage.getItem(this.KEY_ROLE) as Role | null;
-
-    if (token && role) {
+    if (token) {
       this.setSessionFromToken(token);
+      this.fetchUser().subscribe({ error: () => this.logout() });
     }
   }
 
-  // ---------------------------
-  // Sesión: set desde un token
-  // ---------------------------
+  me(): Observable<any> {
+    const token = this.getToken();
+    const headers = token
+      ? new HttpHeaders({ Authorization: `Bearer ${token}` })
+      : new HttpHeaders();
+    return this.http.get<any>(`${this.API}/users/me`, { headers });
+  }
+  fetchUser(): Observable<any> {
+    return this.me().pipe(
+      tap((user) => {
+        if (user) {
+          const roleFromUser = user.role ?? null;
+          if (roleFromUser) {
+            localStorage.setItem(this.KEY_ROLE, roleFromUser);
+            this._role.set(roleFromUser);
+          }
+
+          this._user.set({
+            id: user._id ?? user.id,
+            name: user.name,
+            email: user.email,
+            nickname: user.nickname,
+          });
+
+          this.userSubject.next(this._user());
+        }
+      }),
+      catchError((err) => {
+        this.userSubject.next(null);
+        throw err;
+      })
+    );
+  }
+
   private setSessionFromToken(token: string) {
     localStorage.setItem(this.KEY_TOKEN, token);
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
-      const role = payload?.type || payload?.role || null;
+      const role = payload?.role || null;
       if (role) localStorage.setItem(this.KEY_ROLE, role);
 
       const name = payload?.email ? payload.email.split('@')[0] : 'Usuario';
@@ -73,25 +107,23 @@ export class AuthService {
     }
   }
 
-  // ---------------------------
-  // Login real
-  // ---------------------------
   loginHttp(dto: LoginDto): Observable<TokenResponse> {
     return this.http.post<TokenResponse>(`${this.API}/auth/login`, dto);
   }
 
-  // ---------------------------
-  // Registro real
-  // ---------------------------
   registerHttp(dto: RegisterDto): Observable<TokenResponse> {
     return this.http.post<TokenResponse>(`${this.API}/auth/register`, dto);
   }
 
-  // ---------------------------
-  // Helpers de sesión
-  // ---------------------------
   applyToken(token: string) {
     this.setSessionFromToken(token);
+
+    this.fetchUser().subscribe({
+      next: () => {},
+      error: () => {
+        this.logout();
+      },
+    });
   }
 
   getToken(): string | null {
