@@ -18,7 +18,7 @@ export const rolGuard: CanActivateFn = (route, state) => {
     return false;
   }
 
-  if (auth.isUser()) {
+  if (auth.isFoodie()) {
     if (url === '/profile/user') return true;
     router.navigate(['/profile/user']);
     return false;

@@ -35,7 +35,7 @@ export class LoginComponent {
           this.authService.applyToken(res.token);
 
           const role = this.authService.role();
-          if (role === 'user') this.router.navigate(['/profile/user']);
+          if (role === 'foodie') this.router.navigate(['/profile/user']);
           else if (role === 'partner')
             this.router.navigate(['/profile/partner']);
           else this.router.navigate(['/feed']);

@@ -35,7 +35,7 @@ export class NavbarComponent implements OnInit, OnChanges {
   @Input() activeTabName: string = '';
 
   selectedTab?: Tab;
-  role = localStorage.getItem('auth_role_demo');
+  role = localStorage.getItem('auth_role');
 
   holdTimeout: any;
   showProfileMenu = false;
@@ -58,9 +58,9 @@ export class NavbarComponent implements OnInit, OnChanges {
     if (tab.name !== 'Profile' && tab.route) {
       this.router.navigate([tab.route]);
     } else if (tab.name === 'Profile') {
-      if (this.role === 'user') {
+      if (this.auth.role() === 'foodie') {
         this.router.navigate(['/profile/user']);
-      } else if (this.role === 'partner') {
+      } else if (this.auth.role() === 'partner') {
         this.router.navigate(['/profile/partner']);
       }
     }
@@ -80,9 +80,9 @@ export class NavbarComponent implements OnInit, OnChanges {
 
   goToProfile() {
     this.showProfileMenu = false;
-    if (this.role === 'user') {
+    if (this.auth.role() === 'foodie') {
       this.router.navigate(['/profile/user']);
-    } else if (this.role === 'partner') {
+    } else if (this.auth.role() === 'partner') {
       this.router.navigate(['/profile/partner']);
     }
   }

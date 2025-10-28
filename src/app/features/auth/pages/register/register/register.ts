@@ -40,7 +40,7 @@ export class RegisterComponent {
     this.step = type;
   }
 
-  submitUser() {
+  submitFoodie() {
     if (
       !this.name ||
       !this.lastname ||
@@ -58,7 +58,7 @@ export class RegisterComponent {
         name: this.name,
         email: this.email,
         password: this.password,
-        type: 'user',
+        type: 'foodie',
         lastname: this.lastname,
         nickname: this.nickname,
         age: this.age,

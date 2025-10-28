@@ -2,7 +2,7 @@ import { Injectable, signal, computed, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-type Role = 'admin' | 'user' | 'partner';
+type Role = 'admin' | 'foodie' | 'partner';
 
 interface LoginDto {
   email: string;
@@ -62,11 +62,12 @@ export class AuthService {
     localStorage.setItem(this.KEY_TOKEN, token);
     try {
       const payload = JSON.parse(atob(token.split('.')[1]));
-      if (payload?.type) localStorage.setItem(this.KEY_ROLE, payload.type);
+      const role = payload?.type || payload?.role || null;
+      if (role) localStorage.setItem(this.KEY_ROLE, role);
 
       const name = payload?.email ? payload.email.split('@')[0] : 'Usuario';
       this._user.set({ name, email: payload?.email || '' });
-      this._role.set(payload?.type ?? null);
+      this._role.set(role);
       this._exp.set(typeof payload?.exp === 'number' ? payload.exp : null);
     } catch {
       this.logout();
@@ -133,7 +134,7 @@ export class AuthService {
     return d?.type === 'admin';
   }
 
-  isUser(): boolean {
+  isFoodie(): boolean {
     const d = this.getDecoded();
     return d?.type === 'user';
   }
