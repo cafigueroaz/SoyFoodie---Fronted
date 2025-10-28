@@ -147,7 +147,7 @@ export class AuthService {
     this.setSessionFromToken(token);
     this.fetchUser().subscribe({
       next: () => {},
-      error: () => this.logout(),
+      // error: () => this.logout(),
     });
   }
 

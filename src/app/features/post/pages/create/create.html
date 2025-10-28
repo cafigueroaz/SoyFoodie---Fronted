@@ -1,3 +1,4 @@
+<!-- src/app/features/posts/pages/create/create.html -->
 <div class="login-container">
   <div class="title-container">
     <img
@@ -13,105 +14,68 @@
   </div>
 
   <form (ngSubmit)="onSubmit()" #postForm="ngForm" class="login-card">
+    <!-- Nombre del restaurante -->
     <div class="form-group">
       <input
         class="text-label"
-        id="titulo"
-        name="titulo"
+        id="partner"
+        name="partner"
         type="text"
-        [(ngModel)]="post.titulo"
+        [(ngModel)]="post.partner"
         required
-        placeholder="Título del post"
+        placeholder="Nombre del restaurante o partner"
       />
     </div>
 
+    <!-- Comentario -->
     <div class="form-group">
       <textarea
         class="text-label"
-        id="descripcion"
-        name="descripcion"
-        [(ngModel)]="post.descripcion"
+        id="comment"
+        name="comment"
+        [(ngModel)]="post.comment"
         required
-        placeholder="Descripción o reseña"
+        placeholder="Escribe tu reseña o comentario..."
       ></textarea>
     </div>
 
+    <!-- Calificación -->
     <div class="form-group">
       <input
         class="text-label"
-        id="ubicacion"
-        name="ubicacion"
-        type="text"
-        [(ngModel)]="post.ubicacion"
-        placeholder="Ubicación (opcional)"
-      />
-    </div>
-
-    <div class="form-group">
-      <input
-        class="text-label"
-        id="etiquetas"
-        name="etiquetas"
-        type="text"
-        [(ngModel)]="etiquetasInput"
-        (keyup.enter)="addEtiqueta()"
-        placeholder="Agregar etiquetas (#Vegano, #PetFriendly...)"
-      />
-    </div>
-
-    <div class="tag-container" *ngIf="post.etiquetas?.length">
-      <div class="tag" *ngFor="let tag of post.etiquetas">
-        {{ tag }}
-        <span class="remove-tag" (click)="removeEtiqueta(tag)">×</span>
-      </div>
-    </div>
-
-    <div class="form-group">
-      <input
-        class="text-label"
-        id="calificacion"
-        name="calificacion"
+        id="rating"
+        name="rating"
         type="number"
-        [(ngModel)]="post.calificacion"
-        min="1"
-        max="5"
+        [(ngModel)]="post.rating"
         required
         placeholder="Calificación (1 a 5)"
       />
     </div>
 
-    <div class="form-group">
-      <select
-        class="text-label"
-        id="visibilidad"
-        name="visibilidad"
-        [(ngModel)]="post.visibilidad"
-        required
-      >
-        <option value="" disabled selected>Selecciona visibilidad</option>
-        <option value="public">Público</option>
-        <option value="private">Privado</option>
-        <option value="followers">Solo seguidores</option>
-      </select>
-    </div>
-
+    <!-- Enlace multimedia -->
     <div class="form-group">
       <input
         class="text-label"
-        id="fotos"
-        name="fotos"
-        type="file"
-        multiple
-        (change)="onFileSelected($event)"
-        accept="image/*"
+        id="mediaUrl"
+        name="mediaUrl"
+        type="url"
+        [(ngModel)]="post.mediaUrl"
+        required
+        placeholder="Pega aquí el enlace del video o imagen"
       />
     </div>
 
-    <button class="btn-primary" type="submit" [disabled]="postForm.invalid">
-      Publicar
+    <!-- Botón -->
+    <button
+      class="btn-primary"
+      type="submit"
+      [disabled]="postForm.invalid || loading"
+    >
+      {{ loading ? "Publicando..." : "Publicar" }}
     </button>
   </form>
 </div>
+
 <section class="profile-navbar">
   <app-navbar [activeTabName]="'Create'"></app-navbar>
 </section>

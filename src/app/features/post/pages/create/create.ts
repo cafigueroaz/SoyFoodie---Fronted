@@ -1,24 +1,17 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, Location } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { NavbarComponent } from '../../../../shared/components/navbar/navbar';
-import { Location } from '@angular/common';
+import { PostService } from '../../services/post';
 
 interface Post {
-  id?: string;
-  usuarioId: string;
-  partnerId?: string;
-  titulo: string;
-  descripcion: string;
-  fotos: string[];
-  ubicacion?: string;
-  etiquetas?: string[];
-  calificacion: number;
-  fechaPublicacion: Date;
-  visibilidad: 'public' | 'private' | 'followers';
-  likes?: string[];
-  guardados?: string[];
+  partner: string;
+  type: string;
+  comment: string;
+  rating: number | string;
+  origin?: 'self' | 'tagged';
+  mediaUrl?: string;
 }
 
 @Component({
@@ -30,40 +23,49 @@ interface Post {
 })
 export class CreatePost {
   post: Post = {
-    usuarioId: '',
-    titulo: '',
-    descripcion: '',
-    fotos: [],
-    ubicacion: '',
-    etiquetas: [],
-    calificacion: undefined!,
-    fechaPublicacion: new Date(),
-    visibilidad: 'public',
+    partner: '',
+    type: 'reseña',
+    comment: '',
+    rating: 'Del 1 al 5',
+    mediaUrl: '',
   };
 
   etiquetasInput = '';
+  loading = false;
 
-  addEtiqueta() {
-    if (this.etiquetasInput.trim()) {
-      this.post.etiquetas!.push(this.etiquetasInput.trim());
-      this.etiquetasInput = '';
-    }
-  }
-
-  removeEtiqueta(tag: string) {
-    this.post.etiquetas = this.post.etiquetas!.filter((t) => t !== tag);
-  }
-
-  onFileSelected(event: any) {
-    const files = Array.from(event.target.files);
-    this.post.fotos = files.map((f: any) => f.name);
-  }
+  constructor(
+    private location: Location,
+    private postService: PostService,
+    private router: Router
+  ) {}
 
   onSubmit() {
-    console.log('✅ Post creado:', this.post);
-  }
+    if (!this.post.partner || !this.post.rating) {
+      alert('Debes ingresar el restaurante y una calificación.');
+      return;
+    }
 
-  constructor(private location: Location) {}
+    this.loading = true;
+
+    const postData = {
+      ...this.post,
+      mediaUrls: this.post.mediaUrl ? [this.post.mediaUrl] : [],
+    };
+
+    this.postService.createPost(postData).subscribe({
+      next: (res) => {
+        console.log('✅ Post creado correctamente:', res);
+        alert('Publicación creada con éxito');
+        this.loading = false;
+        this.router.navigate(['/profile/user']);
+      },
+      error: (err) => {
+        console.error('❌ Error al crear el post:', err);
+        alert('Error al crear la publicación.');
+        this.loading = false;
+      },
+    });
+  }
 
   goBack() {
     this.location.back();
