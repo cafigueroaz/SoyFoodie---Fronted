@@ -2,32 +2,21 @@
   @if (step === 'choose') {
   <h1>¿Qué tipo de cuenta vas a crear?</h1>
   <div class="choose">
-    <button (click)="select('user')">Usuario</button>
-    <button (click)="select('partner')">Restaurante / Partner</button>
+    <button (click)="select('foodie')">Usuario</button>
+    <button (click)="select('partner')">Restaurante</button>
   </div>
-  } @else if (step === 'user') {
-  <h1 class="text-title">Crear cuenta de Usuario</h1>
+  } @else if (step === 'foodie') {
+  <h1 class="text-title">Crear cuenta de Foodie</h1>
 
-  <form (ngSubmit)="submitFoodie()" #userForm="ngForm" class="login-card">
+  <form (ngSubmit)="submitFoodie()" #foodieForm="ngForm" class="login-card">
     <div class="form-group">
-      <div class="input-container">
-        <input
-          class="text-label"
-          name="name"
-          [(ngModel)]="name"
-          required
-          placeholder="Nombres"
-        />
-      </div>
-      <div class="input-container">
-        <input
-          class="text-label"
-          name="lastname"
-          [(ngModel)]="lastname"
-          required
-          placeholder="Apellidos"
-        />
-      </div>
+      <input
+        class="text-label"
+        name="name"
+        [(ngModel)]="name"
+        required
+        placeholder="Nombre completo"
+      />
     </div>
 
     <div class="form-group">
@@ -47,6 +36,7 @@
         type="number"
         [(ngModel)]="age"
         required
+        placeholder="Edad"
       />
     </div>
 
@@ -68,14 +58,14 @@
         type="password"
         [(ngModel)]="password"
         required
-        placeholder="Contraseña"
+        placeholder="Contraseña (mín. 8 caracteres)"
       />
     </div>
 
     <button
       class="btn-primary"
       type="submit"
-      [disabled]="userForm.invalid || loading"
+      [disabled]="foodieForm.invalid || loading"
     >
       {{ loading ? "Creando..." : "Registrarte" }}
     </button>
@@ -83,6 +73,7 @@
     <p class="separator text-info">
       <span></span>¿Ya tienes una cuenta?<span></span>
     </p>
+
     <button class="btn-secondary" type="button" (click)="goToLogin()">
       Iniciar sesión
     </button>
@@ -92,15 +83,13 @@
 
   <form (ngSubmit)="submitPartner()" #partnerForm="ngForm" class="login-card">
     <div class="form-group">
-      <div class="input-container">
-        <input
-          class="text-label"
-          name="name"
-          [(ngModel)]="name"
-          required
-          placeholder="Nombre del restaurante"
-        />
-      </div>
+      <input
+        class="text-label"
+        name="name"
+        [(ngModel)]="name"
+        required
+        placeholder="Nombre del restaurante"
+      />
     </div>
 
     <div class="form-group">
@@ -119,7 +108,7 @@
         name="address"
         [(ngModel)]="address"
         required
-        placeholder="Dirección"
+        placeholder="Dirección del restaurante"
       />
     </div>
 
@@ -129,7 +118,7 @@
         name="ownerName"
         [(ngModel)]="ownerName"
         required
-        placeholder="Propietario"
+        placeholder="Nombre del propietario"
       />
     </div>
 
@@ -140,7 +129,7 @@
         type="tel"
         [(ngModel)]="phone"
         required
-        placeholder="Teléfono"
+        placeholder="Teléfono de contacto"
       />
     </div>
 
@@ -150,7 +139,7 @@
         name="schedule"
         [(ngModel)]="schedule"
         required
-        placeholder="Horario de atención"
+        placeholder="Horario de atención (ej. 10am - 8pm)"
       />
     </div>
 
@@ -172,7 +161,7 @@
         type="password"
         [(ngModel)]="password"
         required
-        placeholder="Contraseña"
+        placeholder="Contraseña (mín. 8 caracteres)"
       />
     </div>
 

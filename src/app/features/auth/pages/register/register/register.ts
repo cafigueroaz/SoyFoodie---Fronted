@@ -4,8 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../services/auth';
 
-type Role = 'user' | 'partner';
-
 @Component({
   selector: 'app-register',
   standalone: true,
@@ -14,60 +12,56 @@ type Role = 'user' | 'partner';
   styleUrls: ['./register.scss'],
 })
 export class RegisterComponent {
-  step: 'choose' | 'user' | 'partner' = 'choose';
+  step: 'choose' | 'foodie' | 'partner' = 'choose';
 
-  // Campos comunes
-  email = '';
   name = '';
-  lastname = '';
   nickname = '';
+  email = '';
   password = '';
 
-  // Campos específicos de user
-  age = '';
+  age: number | null = null;
 
-  // Campos específicos de partner
   address = '';
-  ownerName = '';
-  phone = '';
   schedule = '';
+  phone = '';
+  ownerName = '';
 
   loading = false;
 
   constructor(private auth: AuthService, private router: Router) {}
 
-  select(type: 'user' | 'partner') {
+  select(type: 'foodie' | 'partner') {
     this.step = type;
   }
 
   submitFoodie() {
     if (
       !this.name ||
-      !this.lastname ||
       !this.nickname ||
       !this.email ||
       !this.password ||
       !this.age
-    )
-      return alert('Completa todos los campos.');
+    ) {
+      alert('Completa todos los campos.');
+      return;
+    }
 
     this.loading = true;
 
     this.auth
       .registerHttp({
         name: this.name,
+        nickname: this.nickname,
         email: this.email,
         password: this.password,
-        type: 'foodie',
-        lastname: this.lastname,
-        nickname: this.nickname,
+        role: 'foodie',
         age: this.age,
       })
       .subscribe({
         next: ({ token }) => {
-          this.auth.applyToken(token); // queda logueado tras registro
+          this.auth.applyToken(token);
           this.loading = false;
-          this.router.navigate(['/home']);
+          this.router.navigate(['/feed']);
         },
         error: (err) => {
           this.loading = false;
@@ -79,7 +73,6 @@ export class RegisterComponent {
   submitPartner() {
     if (
       !this.name ||
-      !this.lastname ||
       !this.nickname ||
       !this.email ||
       !this.password ||
@@ -87,19 +80,20 @@ export class RegisterComponent {
       !this.ownerName ||
       !this.phone ||
       !this.schedule
-    )
-      return alert('Completa todos los campos de empresa.');
+    ) {
+      alert('Completa todos los campos del restaurante.');
+      return;
+    }
 
     this.loading = true;
 
     this.auth
       .registerHttp({
         name: this.name,
+        nickname: this.nickname,
         email: this.email,
         password: this.password,
-        type: 'partner',
-        lastname: this.lastname,
-        nickname: this.nickname,
+        role: 'partner',
         address: this.address,
         ownerName: this.ownerName,
         phone: this.phone,
@@ -107,13 +101,13 @@ export class RegisterComponent {
       })
       .subscribe({
         next: ({ token }) => {
-          this.auth.applyToken(token); // queda logueado tras registro
+          this.auth.applyToken(token);
           this.loading = false;
-          this.router.navigate(['/home']);
+          this.router.navigate(['/feed']);
         },
         error: (err) => {
           this.loading = false;
-          alert(err?.error?.error || 'Error al registrar empresa.');
+          alert(err?.error?.error || 'Error al registrar partner.');
         },
       });
   }
