@@ -30,8 +30,8 @@ export class ScrollGalleryComponent implements AfterViewInit {
     },
     {
       id: 2,
-      src: 'https://res.cloudinary.com/dupuzbtuc/video/upload/v1760667191/Video_Hero_1_o6sdll.mp4',
-      username: '@maria',
+      src: 'https://res.cloudinary.com/dupuzbtuc/video/upload/v1761682054/ssstik.io__alejandraahorra_1761681979687_tbzah0.mp4',
+      username: '@alejandra',
     },
     {
       id: 3,
@@ -42,6 +42,26 @@ export class ScrollGalleryComponent implements AfterViewInit {
       id: 4,
       src: 'https://res.cloudinary.com/dupuzbtuc/video/upload/v1760667179/Video_Hero_2_z5cytf.mp4 ',
       username: '@alejandro',
+    },
+    {
+      id: 7,
+      src: 'https://res.cloudinary.com/dupuzbtuc/video/upload/v1761682027/ssstik.io__bogotamixfood_1761681733922_cus3nu.mp4',
+      username: '@bogotamix2',
+    },
+    {
+      id: 8,
+      src: 'https://res.cloudinary.com/dupuzbtuc/image/upload/v1761682033/vista-deliciosa-hamburguesa-panes-queso_23-2151281596_st7ugk.avif',
+      username: '@foodie1',
+    },
+    {
+      id: 9,
+      src: 'https://res.cloudinary.com/dupuzbtuc/image/upload/v1761682031/images_1_mvesc3.jpg',
+      username: '@foodie2',
+    },
+    {
+      id: 10,
+      src: 'https://res.cloudinary.com/dupuzbtuc/image/upload/v1761682030/images_i5poih.jpg',
+      username: '@foodie3',
     },
   ];
 

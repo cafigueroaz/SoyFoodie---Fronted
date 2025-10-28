@@ -65,7 +65,9 @@ export class AuthService {
     const token = localStorage.getItem(this.KEY_TOKEN);
     if (token) {
       this.setSessionFromToken(token);
-      this.fetchUser().subscribe({ error: () => this.logout() });
+      this.fetchUser().subscribe({
+        // error: () => this.logout()
+      });
     }
   }
 
