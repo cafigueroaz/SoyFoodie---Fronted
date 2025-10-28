@@ -29,7 +29,11 @@ export class NavbarComponent implements OnInit, OnChanges {
     { icon: '/icons/search.svg', route: undefined, name: 'Search' },
     { icon: '/icons/plus-square.svg', route: '/create/post', name: 'Create' },
     { icon: '/icons/map.svg', route: undefined, name: 'Map' },
-    { icon: '/icons/user-circle-2.svg', route: '', name: 'Profile' },
+    {
+      icon: '/icons/user-circle-2.svg',
+      route: '/profile/user',
+      name: 'Profile',
+    },
   ];
   auth = inject(AuthService);
   @Input() activeTabName: string = '';
@@ -55,15 +59,7 @@ export class NavbarComponent implements OnInit, OnChanges {
   selectTab(tab: Tab) {
     this.selectedTab = tab;
 
-    if (tab.name !== 'Profile' && tab.route) {
-      this.router.navigate([tab.route]);
-    } else if (tab.name === 'Profile') {
-      if (this.auth.role() === 'foodie') {
-        this.router.navigate(['/profile/user']);
-      } else if (this.auth.role() === 'partner') {
-        this.router.navigate(['/profile/partner']);
-      }
-    }
+    this.router.navigate([tab.route]);
   }
 
   startHold(tab: Tab) {
@@ -76,15 +72,6 @@ export class NavbarComponent implements OnInit, OnChanges {
 
   cancelHold() {
     clearTimeout(this.holdTimeout);
-  }
-
-  goToProfile() {
-    this.showProfileMenu = false;
-    if (this.auth.role() === 'foodie') {
-      this.router.navigate(['/profile/user']);
-    } else if (this.auth.role() === 'partner') {
-      this.router.navigate(['/profile/partner']);
-    }
   }
 
   buttomLogout() {
