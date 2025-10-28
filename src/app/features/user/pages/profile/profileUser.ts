@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, computed, inject } from '@angular/core';
+import { AuthService } from '../../../../features/auth/services/auth';
 import { UserPostsComponent } from '../../../../shared/motion/user-posts/user-posts';
 import { NavbarComponent } from '../../../../shared/components/navbar/navbar';
 
@@ -16,11 +17,17 @@ interface Tab {
 
 @Component({
   selector: 'app-profile',
+  standalone: true,
   imports: [UserPostsComponent, NavbarComponent],
   templateUrl: './profileUser.html',
   styleUrl: './profileUser.scss',
 })
-export class ProfileUser {
+export class ProfileUser implements OnInit {
+  private auth = inject(AuthService);
+
+  // Obtenemos el usuario como señal reactiva
+  user = computed(() => this.auth.user());
+
   userTabs: Tab[] = [
     {
       icon: '/icons/grid.svg',
@@ -109,4 +116,13 @@ export class ProfileUser {
       ],
     },
   ];
+
+  ngOnInit() {
+    // Si el usuario no está en memoria, lo cargamos desde el backend
+    if (!this.user()) {
+      this.auth.fetchUser().subscribe({
+        error: () => console.error('Error al obtener el usuario'),
+      });
+    }
+  }
 }

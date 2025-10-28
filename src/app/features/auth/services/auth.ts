@@ -1,9 +1,19 @@
 import { Injectable, signal, computed, inject } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 
 type Role = 'admin' | 'foodie' | 'partner';
+
+interface User {
+  id?: string;
+  name?: string;
+  nickname?: string;
+  email?: string;
+  role?: Role;
+  savedPartners?: string[];
+  age?: number | string;
+}
 
 interface LoginDto {
   email: string;
@@ -35,7 +45,7 @@ export class AuthService {
   private readonly KEY_TOKEN = 'auth_token';
   private readonly KEY_ROLE = 'auth_role';
 
-  private _user = signal<Record<string, any> | null>(null);
+  private _user = signal<User | null>(null);
   private _role = signal<Role | null>(null);
   private _exp = signal<number | null>(null);
 
@@ -43,7 +53,7 @@ export class AuthService {
   role = computed(() => this._role());
   exp = computed(() => this._exp());
 
-  private userSubject = new BehaviorSubject<Record<string, any> | null>(null);
+  private userSubject = new BehaviorSubject<User | null>(null);
   user$ = this.userSubject.asObservable();
 
   private http = inject(HttpClient);
@@ -57,14 +67,17 @@ export class AuthService {
     }
   }
 
-  me(): Observable<any> {
+  /** Obtiene datos del usuario logueado */
+  me(): Observable<User> {
     const token = this.getToken();
     const headers = token
       ? new HttpHeaders({ Authorization: `Bearer ${token}` })
       : new HttpHeaders();
-    return this.http.get<any>(`${this.API}/users/me`, { headers });
+    return this.http.get<User>(`${this.API}/users/me`, { headers });
   }
-  fetchUser(): Observable<any> {
+
+  /** Actualiza la información del usuario en memoria y BehaviorSubject */
+  fetchUser(): Observable<User> {
     return this.me().pipe(
       tap((user) => {
         if (user) {
@@ -74,11 +87,13 @@ export class AuthService {
             this._role.set(roleFromUser);
           }
 
+          // Ajuste: Aseguramos que todas las propiedades sean opcionales y tipadas
           this._user.set({
-            id: user._id ?? user.id,
+            id: user.id ?? (user as any)._id,
             name: user.name,
             email: user.email,
             nickname: user.nickname,
+            role: user.role,
           });
 
           this.userSubject.next(this._user());
@@ -86,11 +101,12 @@ export class AuthService {
       }),
       catchError((err) => {
         this.userSubject.next(null);
-        throw err;
+        return throwError(() => err);
       })
     );
   }
 
+  /** Decodifica el token y guarda sesión local */
   private setSessionFromToken(token: string) {
     localStorage.setItem(this.KEY_TOKEN, token);
     try {
@@ -99,7 +115,11 @@ export class AuthService {
       if (role) localStorage.setItem(this.KEY_ROLE, role);
 
       const name = payload?.email ? payload.email.split('@')[0] : 'Usuario';
-      this._user.set({ name, email: payload?.email || '' });
+      this._user.set({
+        name,
+        email: payload?.email || '',
+        role,
+      });
       this._role.set(role);
       this._exp.set(typeof payload?.exp === 'number' ? payload.exp : null);
     } catch {
@@ -107,6 +127,7 @@ export class AuthService {
     }
   }
 
+  /** Peticiones HTTP de autenticación */
   loginHttp(dto: LoginDto): Observable<TokenResponse> {
     return this.http.post<TokenResponse>(`${this.API}/auth/login`, dto);
   }
@@ -115,17 +136,16 @@ export class AuthService {
     return this.http.post<TokenResponse>(`${this.API}/auth/register`, dto);
   }
 
+  /** Aplica un token manualmente y obtiene los datos del usuario */
   applyToken(token: string) {
     this.setSessionFromToken(token);
-
     this.fetchUser().subscribe({
       next: () => {},
-      error: () => {
-        this.logout();
-      },
+      error: () => this.logout(),
     });
   }
 
+  /** Utilidades */
   getToken(): string | null {
     return localStorage.getItem(this.KEY_TOKEN);
   }
@@ -146,30 +166,31 @@ export class AuthService {
     this._user.set(null);
     this._role.set(null);
     this._exp.set(null);
+    this.userSubject.next(null);
   }
 
+  /** Verificaciones de sesión */
   isLoggedIn(): boolean {
     const d = this.getDecoded();
     if (!d) return false;
     if (typeof d.exp === 'number' && d.exp * 1000 < Date.now()) {
       return false;
     }
-
     return true;
   }
 
   isAdmin(): boolean {
     const d = this.getDecoded();
-    return d?.type === 'admin';
+    return d?.role === 'admin';
   }
 
   isFoodie(): boolean {
     const d = this.getDecoded();
-    return d?.type === 'user';
+    return d?.role === 'foodie';
   }
 
   isPartner(): boolean {
     const d = this.getDecoded();
-    return d?.type === 'partner';
+    return d?.role === 'partner';
   }
 }

@@ -8,7 +8,7 @@
 
       <div class="user-center">
         <div class="avatar"></div>
-        <p class="username">@cristianfigueroa</p>
+        <p class="username">@{{ user()?.nickname }}</p>
       </div>
 
       <div class="stat">
@@ -18,13 +18,15 @@
     </div>
 
     <div class="user-description">
-      <p class="user-name">Cristian Figueroa</p>
+      <p class="user-name">{{ user()?.name }}</p>
       <p class="user-bio">Buscando la mejor hamburguesa de Bogotá 🍔</p>
     </div>
   </section>
+
   <section class="profile-posts">
     <app-user-posts [tabs]="userTabs"></app-user-posts>
   </section>
+
   <section class="profile-navbar">
     <app-navbar [activeTabName]="'Profile'"></app-navbar>
   </section>
