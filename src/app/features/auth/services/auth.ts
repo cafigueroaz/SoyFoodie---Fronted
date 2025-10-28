@@ -12,7 +12,9 @@ interface User {
   email?: string;
   role?: Role;
   savedPartners?: string[];
-  age?: number | string;
+  followers?: string[];
+  following?: string[];
+  description?: string;
 }
 
 interface LoginDto {
@@ -94,6 +96,10 @@ export class AuthService {
             email: user.email,
             nickname: user.nickname,
             role: user.role,
+            savedPartners: user.savedPartners ?? [],
+            followers: user.followers ?? [],
+            following: user.following ?? [],
+            description: user.description ?? '',
           });
 
           this.userSubject.next(this._user());
