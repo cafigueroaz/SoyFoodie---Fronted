@@ -2,16 +2,36 @@ import { Injectable, signal, computed } from '@angular/core';
 
 type Role = 'admin' | 'user' | 'partner';
 
+interface BaseRegisterData {
+  name: string;
+  lastname: string;
+  nickname: string;
+  email: string;
+  password: string;
+  type: Role;
+}
+
+interface UserRegisterData extends BaseRegisterData {
+  dateOfBirth: string;
+}
+
+interface PartnerRegisterData extends BaseRegisterData {
+  address: string;
+  ownerName: string;
+  phone: string;
+  schedule: string;
+}
+
+type RegisterData = UserRegisterData | PartnerRegisterData;
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  // Mantén esta constante: define la clave de almacenamiento local
   private readonly KEY_TOKEN = 'auth_token_demo';
   private readonly KEY_ROLE = 'auth_role_demo';
 
-  // Signals: estado reactivo global
-  private _user = signal<{ name: string; email: string } | null>(null);
+  private _user = signal<Record<string, any> | null>(null);
   private _role = signal<Role | null>(null);
   private _exp = signal<number | null>(null);
 
@@ -24,20 +44,20 @@ export class AuthService {
     const role = localStorage.getItem(this.KEY_ROLE) as Role | null;
 
     if (token && role) {
-      this._user.set({ name: 'Usuario', email: 'user@finbit.dev' });
+      const decoded = this.readPayload(token);
+      this._user.set(decoded);
       this._role.set(role);
     }
   }
 
-  // ---- Generación de un JWT simulado (solo para clase) ----
+  // ---- Generación de un JWT simulado ----
   private makeFakeJWT(payload: object): string {
     const header = btoa(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
     const body = btoa(JSON.stringify(payload));
-    const sign = btoa('FinBitFakeSignature'); // solo decorativo
+    const sign = btoa('FinBitFakeSignature');
     return `${header}.${body}.${sign}`;
   }
 
-  // ---- Decodificador robusto (payload → objeto) ----
   private readPayload(token: string): any | null {
     try {
       const parts = token.split('.');
@@ -49,20 +69,14 @@ export class AuthService {
     }
   }
 
-  // Carga de usuario simulado
-  loadUser() {
-    setTimeout(() => {
-      this._user.set({ name: 'Alek Segura', email: 'alek@test.dev' });
-    }, 1500);
-  }
-
-  // Simulación simple de login
+  // ---- Login simulado ----
   login(email: string, password: string): boolean {
     if (!email || !password) return false;
 
     const asUser = /user/i.test(email);
     const role: Role = asUser ? 'user' : 'partner';
-    const exp = Math.floor(Date.now() / 1000) + 60 * 30; // expira en 30 min
+    const exp = Math.floor(Date.now() / 1000) + 60 * 30;
+
     const token = this.makeFakeJWT({
       name: email.split('@')[0],
       email,
@@ -76,28 +90,29 @@ export class AuthService {
     this._user.set({ name: email.split('@')[0], email });
     this._role.set(role);
     this._exp.set(exp);
+
     return true;
   }
 
-  register(data: {
-    name: string;
-    email: string;
-    password: string;
-    type: Role;
-  }): boolean {
+  // ---- Registro simulado ----
+  register(data: RegisterData): boolean {
     if (!data.name || !data.email || !data.password) return false;
+
     const exp = Math.floor(Date.now() / 1000) + 60 * 30;
+
     const token = this.makeFakeJWT({
-      name: data.name,
-      email: data.email,
-      role: data.type,
+      ...data, // guardamos todos los datos (para decodificar luego)
       exp,
     });
+
     localStorage.setItem(this.KEY_TOKEN, token);
     localStorage.setItem(this.KEY_ROLE, data.type);
-    this._user.set({ name: data.name, email: data.email });
+
+    // se guarda todo el perfil del usuario
+    this._user.set(data);
     this._role.set(data.type);
     this._exp.set(exp);
+
     return true;
   }
 
@@ -110,7 +125,6 @@ export class AuthService {
     return t ? this.readPayload(t) : null;
   }
 
-  // Cierre de sesión
   logout() {
     localStorage.removeItem(this.KEY_TOKEN);
     localStorage.removeItem(this.KEY_ROLE);
@@ -118,11 +132,9 @@ export class AuthService {
     this._role.set(null);
   }
 
-  // Verificación de sesión
   isLoggedIn(): boolean {
     const d = this.getDecoded();
     if (!d) return false;
-    // Check exp en el cliente para UX (el backend siempre valida igual)
     if (typeof d.exp === 'number' && d.exp * 1000 < Date.now()) {
       this.logout();
       return false;

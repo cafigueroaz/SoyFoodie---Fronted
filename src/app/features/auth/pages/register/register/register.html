@@ -1,14 +1,19 @@
-<div class="login-container">
-  <h1 class="text-title">Crear cuenta</h1>
+<div class="register-container">
+  @if (step === 'choose') {
+  <h1>¿Qué tipo de cuenta vas a crear?</h1>
+  <div class="choose">
+    <button (click)="select('user')">Usuario</button>
+    <button (click)="select('partner')">Restaurante / Partner</button>
+  </div>
+  } @else if (step === 'user') {
+  <h1 class="text-title">Crear cuenta de Usuario</h1>
 
-  <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="login-card">
+  <form (ngSubmit)="submitUser()" #userForm="ngForm" class="login-card">
     <div class="form-group">
       <div class="input-container">
         <input
           class="text-label"
-          id="name"
           name="name"
-          type="text"
           [(ngModel)]="name"
           required
           placeholder="Nombres"
@@ -17,41 +22,37 @@
       <div class="input-container">
         <input
           class="text-label"
-          id="lastname"
           name="lastname"
-          type="text"
           [(ngModel)]="lastname"
           required
           placeholder="Apellidos"
         />
       </div>
     </div>
+
     <div class="form-group">
       <input
         class="text-label"
-        id="nickname"
         name="nickname"
-        type="nickname"
         [(ngModel)]="nickname"
         required
         placeholder="Nombre de usuario"
       />
     </div>
+
     <div class="form-group">
       <input
         class="text-label"
-        id="dateOfBirth"
         name="dateOfBirth"
         type="date"
         [(ngModel)]="dateOfBirth"
         required
-        placeholder="Fecha de nacimiento"
       />
     </div>
+
     <div class="form-group">
       <input
         class="text-label"
-        id="email"
         name="email"
         type="email"
         [(ngModel)]="email"
@@ -63,25 +64,132 @@
     <div class="form-group">
       <input
         class="text-label"
-        id="password"
         name="password"
         type="password"
         [(ngModel)]="password"
         required
-        placeholder="Nueva contraseña"
+        placeholder="Contraseña"
       />
     </div>
 
-    <button class="btn-primary" type="submit" [disabled]="loginForm.invalid">
-      Registrarte
+    <button
+      class="btn-primary"
+      type="submit"
+      [disabled]="userForm.invalid || loading"
+    >
+      {{ loading ? "Creando..." : "Registrarte" }}
     </button>
 
     <p class="separator text-info">
       <span></span>¿Ya tienes una cuenta?<span></span>
     </p>
-
-    <button class="btn-secondary" (click)="goToLogin()" type="button">
+    <button class="btn-secondary" type="button" (click)="goToLogin()">
       Iniciar sesión
     </button>
   </form>
+  } @else {
+  <h1 class="text-title">Crear cuenta de Partner</h1>
+
+  <form (ngSubmit)="submitPartner()" #partnerForm="ngForm" class="login-card">
+    <div class="form-group">
+      <div class="input-container">
+        <input
+          class="text-label"
+          name="name"
+          [(ngModel)]="name"
+          required
+          placeholder="Nombre del restaurante"
+        />
+      </div>
+    </div>
+
+    <div class="form-group">
+      <input
+        class="text-label"
+        name="nickname"
+        [(ngModel)]="nickname"
+        required
+        placeholder="Nombre de usuario"
+      />
+    </div>
+
+    <div class="form-group">
+      <input
+        class="text-label"
+        name="address"
+        [(ngModel)]="address"
+        required
+        placeholder="Dirección"
+      />
+    </div>
+
+    <div class="form-group">
+      <input
+        class="text-label"
+        name="ownerName"
+        [(ngModel)]="ownerName"
+        required
+        placeholder="Propietario"
+      />
+    </div>
+
+    <div class="form-group">
+      <input
+        class="text-label"
+        name="phone"
+        type="tel"
+        [(ngModel)]="phone"
+        required
+        placeholder="Teléfono"
+      />
+    </div>
+
+    <div class="form-group">
+      <input
+        class="text-label"
+        name="schedule"
+        [(ngModel)]="schedule"
+        required
+        placeholder="Horario de atención"
+      />
+    </div>
+
+    <div class="form-group">
+      <input
+        class="text-label"
+        name="email"
+        type="email"
+        [(ngModel)]="email"
+        required
+        placeholder="Correo electrónico"
+      />
+    </div>
+
+    <div class="form-group">
+      <input
+        class="text-label"
+        name="password"
+        type="password"
+        [(ngModel)]="password"
+        required
+        placeholder="Contraseña"
+      />
+    </div>
+
+    <button
+      class="btn-primary"
+      type="submit"
+      [disabled]="partnerForm.invalid || loading"
+    >
+      {{ loading ? "Creando..." : "Registrar empresa" }}
+    </button>
+
+    <p class="separator text-info">
+      <span></span>¿Ya tienes una cuenta?<span></span>
+    </p>
+    <button class="btn-secondary" type="button" (click)="goToLogin()">
+      Iniciar sesión
+    </button>
+  </form>
+  }
 </div>
